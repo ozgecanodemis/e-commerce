@@ -1,20 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Layout from './components/Layout';
 import HomePage from './components/HomePage';
-
+import ProductPage from './components/ProductPage';
 
 const App = () => {
   return (
     <Router>
-
-      <div className="App">
+      <Layout>
         <Switch>
-          {/* Ana sayfa */}
           <Route exact path="/" component={HomePage} />
-
-          <Route path="*" render={() => <div>404 Not Found</div>} />
+          <Route path="/product" component={ProductPage} />
+          {/* Diğer rotalar buraya eklenebilir */}
         </Switch>
-      </div>
+      </Layout>
     </Router>
   );
 };
