@@ -117,30 +117,54 @@ h4 {
 
 .button-s-2 {
     width: 221px;
-
     height: 62px;
-
-    border-radius: 5px;
     font-weight: 700;
     padding: 15px 40px;
-
     background-color: #FFFF;
-
-    color: white;
-
+    color: #252B42;
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 10px;
-
     transition: background-color 0.3s;
-
 }
 
 .button-s-2:hover {
     background-color: gainsboro;
     /* Hover durumunda arka plan rengi */
+}
+
+
+/* Kart boyutu */
+.product-card {
+    width: 348px;
+    height: 615px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 45px 30px 35px 25px;
+
+
+
+    background-color: white;
+}
+
+/* Fotoğraf boyutu */
+.product-card img {
+    width: 348px;
+    height: 427px;
+    object-fit: cover;
+    opacity: 0.9;
+}
+
+/* Fotoğraf altındaki kısım */
+.product-card .product-info {
+    width: 348px;
+    height: auto;
+    padding: 25px 25px 35px 25px;
+    gap: 10px;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
