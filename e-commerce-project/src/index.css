@@ -5,3 +5,142 @@
 
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
+
+:root {
+    --primary-color: #23856D;
+    --secondary-color: #47AD97;
+    --secondary-color-2: #17213C;
+}
+
+:root {
+    --font-family: 'Montserrat', sans-serif;
+    --font-weight: 500;
+    --letter-spacing: 0.2px;
+    --text-align: left;
+
+    --h1-size: 64px;
+    --h1-line-height: 80px;
+
+    --h2-size: 50px;
+    --h2-line-height: 57px;
+
+    --h3-size: 30px;
+    --h3-line-height: 32px;
+
+    --h4-size: 28px;
+    --h4-line-height: 30px;
+    --h4-weight: var(--font-weight);
+
+    --h5-size: 20px;
+    --h5-line-height: 24px;
+
+    --h6-size: 19px;
+    --h6-line-height: 24px;
+
+    --btn-text-size: 62px;
+    --btn-text-line-height: 28px;
+
+    --mobile-menu-size: 210px;
+    --mobile-menu-line-height: 45px;
+
+    --paragraph-size: 77px;
+    --paragraph-line-height: 20px;
+
+    --list-size: 31px;
+    --list-line-height: 30px;
+
+    --link-size: 28px;
+    --link-line-height: 20px;
+}
+
+h1 {
+    font-family: var(--font-family);
+    font-weight: var(--font-weight);
+    font-size: var(--h1-size);
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--letter-spacing);
+    text-align: var(--text-align);
+}
+
+h2 {
+    font-family: var(--font-family);
+    font-weight: var(--font-weight);
+    font-size: var(--h2-size);
+    line-height: var(--h2-line-height);
+    letter-spacing: var(--letter-spacing);
+    text-align: var(--text-align);
+}
+
+
+h4 {
+    font-family: var(--font-family);
+    font-weight: var(--h4-weight);
+    font-size: var(--h4-size);
+    line-height: var(--h4-line-height);
+    letter-spacing: var(--letter-spacing);
+    text-align: var(--text-align);
+    color: white;
+    /* Metin rengini ayarlamak için eklenebilir */
+}
+
+.custom-button {
+    width: 221px;
+
+    height: 62px;
+
+    border-radius: 5px;
+    font-weight: 700;
+    padding: 15px 40px;
+
+    background-color: #2DC071;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    transition: background-color 0.3s;
+
+}
+
+.custom-button:hover {
+    background-color: #28a745;
+    /* Hover durumunda arka plan rengi */
+}
+
+
+
+.button-s-2 {
+    width: 221px;
+
+    height: 62px;
+
+    border-radius: 5px;
+    font-weight: 700;
+    padding: 15px 40px;
+
+    background-color: #FFFF;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    transition: background-color 0.3s;
+
+}
+
+.button-s-2:hover {
+    background-color: gainsboro;
+    /* Hover durumunda arka plan rengi */
+}
