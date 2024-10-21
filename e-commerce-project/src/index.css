@@ -168,3 +168,15 @@ h4 {
     flex-direction: column;
     justify-content: center;
 }
+
+
+.button-3 {
+    background-color: #23A6F0;
+    color: white;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+}
+
+.button-3:hover {
+    background-color: #1c7b9d;
+}

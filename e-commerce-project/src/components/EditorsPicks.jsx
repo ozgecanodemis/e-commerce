@@ -1,4 +1,3 @@
-// src/components/EditorsPicks.jsx
 import React from 'react';
 import editorImg1 from '../assets/editors1.jpg';
 import editorImg2 from '../assets/editors2.jpg';
@@ -8,10 +7,14 @@ import '../index.css'; // Button stilleri için CSS dosyasını ekleyin
 
 const EditorsPicks = () => {
     return (
-        <section className="p-4 flex-row justify-center items-center">
+        <section className="p-4 flex-row justify-center items-center ">
             {/* Başlık ve Açıklama */}
-            <h3 className="w-[196px] text-2xl font-bold mb-2">Editor's Picks</h3>
-            <p className="w-[196px] text-lg mb-4">Check out our top picks for you this season.</p>
+            <h3 className="w-[181px] text-[24px] font-[700] leading-[32px] mx-auto tracking-[0.1px] text-[#252B42] text-left font-montserrat mb-2">
+                EDITOR'S PICK
+            </h3>
+            <p className="w-[181px] text-[14px] font-[400] leading-[20px] mx-auto tracking-[0.2px] text-[#737373] text-center font-montserrat mb-4">
+                Check out our top picks for you this season.
+            </p>
 
             {/* Kartlar */}
             <div className="flex flex-col gap-4">

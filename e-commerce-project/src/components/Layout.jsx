@@ -1,6 +1,7 @@
 // src/components/Layout.jsx
 
 import React from 'react';
+import { User, Search, ShoppingCart, Menu } from 'react-feather'; // Feather ikonlarını import ediyoruz
 
 const Layout = ({ children }) => {
     return (
@@ -8,11 +9,11 @@ const Layout = ({ children }) => {
             {/* Header */}
             <header className="flex justify-between items-center p-4 text-[#252B42]">
                 <h3 className='font-bold text-[16px]'>Brand Name</h3>
-                <div className="flex-col items-center space-x-4">
-                    <i className="fas fa-user"></i>
-                    <i className="fas fa-search"></i>
-                    <i className="fas fa-shopping-cart"></i>
-                    <i className="fas fa-bars"></i>
+                <div className="flex space-x-4"> {/* İkonlar için flex ve space-x-4 */}
+                    <User className="text-[#252B42]" />
+                    <Search className="text-[#252B42]" />
+                    <ShoppingCart className="text-[#252B42]" />
+                    <Menu className="text-[#252B42]" />
                 </div>
             </header>
 
@@ -30,9 +31,7 @@ const Layout = ({ children }) => {
             </main>
 
             {/* Footer */}
-            <footer className="text-white p-4 text-center bg-gray-800">
-                Footer Content
-            </footer>
+
         </div>
     );
 };
