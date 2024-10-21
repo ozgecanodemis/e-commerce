@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Clock, BarChart } from 'react-feather'; // Feather Icons'ı kullanmak için gerekli import
+import { Clock, BarChart } from 'react-feather';
 
 const MobileBlog = () => {
     const [articles, setArticles] = useState([]);
@@ -23,19 +23,37 @@ const MobileBlog = () => {
     }, []);
 
     return (
-        <section className="p-4 flex flex-col items-center">
-            <h6 className="text-[20px] font-[400] text-[#737373] leading-[30px] tracking-[0.2px] text-center font-montserrat mb-4">
-                Featured Products
-            </h6>
+        <section className="p-4 flex flex-col items-center gap-[30px]">
 
-            <p className="text-[14px] font-[400] text-[#737373] leading-[20px] tracking-[0.2px] text-center font-montserrat mb-4">
-                Problems trying to resolve the conflict between
-            </p>
+            <div className="flex flex-col justify-center items-center mb-8">
+                <h3 className="font-[400] text-[40px] w-[263px] leading-[30px] text-center font-montserrat mb-4">
+                    Part of the Neural Universe
+                </h3>
 
-            <div className="flex flex-col gap-0">
+                <p className="text-[14px] w-[263px] font-[400] text-[#737373] text-center font-montserrat mb-4">
+                    Problems trying to resolve the conflict between
+                </p>
+                <div className="flex flex-col justify-center items-center gap-[25px]">
+                    <button className="button-4">BUY NOW</button>
+                    <button className="button-4">Learn More</button>
+                </div>
+            </div>
+
+            <div className="flex flex-col justify-center items-center mb-8">
+                <h3 className="font-[400] text-[40px] w-[263px] leading-[30px] text-center font-montserrat mb-4">
+                    Featured Products
+                </h3>
+
+                <p className="text-[14px] w-[263px] font-[400] text-[#737373] leading-[20px] tracking-[0.2px] text-center font-montserrat mb-4">
+                    Problems trying to resolve the conflict between
+                </p>
                 {articles.map((article) => (
                     <div key={article.id} className="w-[329px] h-[606px] flex flex-col border border-gray-300 rounded-md p-4">
-                        <img src={`https://picsum.photos/330/300?random=${article.id}`} alt="Article" className="w-[330px] h-[300px] object-cover mb-4" />
+                        <img
+                            src={`https://picsum.photos/330/300?random=${article.id}`}
+                            alt="Article"
+                            className="w-[330px] h-[300px] object-cover mb-4"
+                        />
 
                         {/* Google Trending Links */}
                         <div className="flex space-x-2 mb-2">
@@ -62,6 +80,7 @@ const MobileBlog = () => {
                     </div>
                 ))}
             </div>
+
         </section>
     );
 };

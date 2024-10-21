@@ -180,3 +180,52 @@ h4 {
 .button-3:hover {
     background-color: #1c7b9d;
 }
+
+h3 {
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 30px;
+    text-align: center;
+    font-family: Montserrat;
+    margin-bottom: 1.5rem;
+    /* Tailwind'de mb-6, 1.5rem (24px) karşılık gelir */
+}
+
+
+.button-4 {
+    width: 151px;
+
+    height: 52px;
+
+
+
+    border-radius: 5px;
+
+    color: #23A6F0;
+
+    border: 2px solid #23A6F0;
+
+    background: transparent;
+
+    transition: background 0.3s, color 0.3s;
+
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    line-height: 22px;
+
+    letter-spacing: 0.2px;
+
+    text-align: center;
+
+}
+
+.button-4:hover {
+    background: #23A6F0;
+
+    color: white;
+
+}
