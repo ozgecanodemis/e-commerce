@@ -4,19 +4,21 @@ import Layout from './components/Layout';
 import HomePage from './components/HomePage';
 import ProductPage from './components/ProductPage';
 import './index.css';
+import ShopPage from './pages/ShopPage';
 
 
 const App = () => {
   return (
-    <Layout>
-      <Router>
+
+    <Router>
+      <Layout>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route path="/product" component={ProductPage} />
-
+          <Route path="/shop" component={ShopPage} />
         </Switch>
-      </Router>
-    </Layout>
+      </Layout>
+    </Router>
+
   );
 };
 

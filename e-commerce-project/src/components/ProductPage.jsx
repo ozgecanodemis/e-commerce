@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../index.css';
 
-const ProductPage = () => {
+const ProductPage = ({ limit, page }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -22,6 +22,10 @@ const ProductPage = () => {
         return <p>Loading products...</p>;
     }
 
+    // Sınırlandırma için slice kullanıyoruz
+    const startIndex = (page - 1) * limit;
+    const limitedProducts = products.slice(startIndex, startIndex + limit);
+
     return (
         <div className="p-4">
             <div className="w-[239px] flex flex-col justify-center items-center text-center mx-auto">
@@ -36,7 +40,7 @@ const ProductPage = () => {
                 </p>
             </div>
             <div className="grid grid-cols-1 gap-4 mx-auto">
-                {products.map(product => (
+                {limitedProducts.map(product => (
                     <div key={product.id} className="product-card">
                         <img src={product.image} alt={product.title} />
                         <div className="product-info">

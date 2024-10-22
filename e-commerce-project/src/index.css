@@ -194,31 +194,17 @@ h3 {
 
 .button-4 {
     width: 151px;
-
     height: 52px;
-
-
-
     border-radius: 5px;
-
     color: #23A6F0;
-
     border: 2px solid #23A6F0;
-
     background: transparent;
-
     transition: background 0.3s, color 0.3s;
-
     font-family: 'Montserrat', sans-serif;
-
     font-size: 14px;
-
     font-weight: 700;
-
     line-height: 22px;
-
     letter-spacing: 0.2px;
-
     text-align: center;
 
 }
@@ -227,5 +213,17 @@ h3 {
     background: #23A6F0;
 
     color: white;
+
+}
+
+.button {
+    background-color: #F3F3F3;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #E0E0E0;
 
 }

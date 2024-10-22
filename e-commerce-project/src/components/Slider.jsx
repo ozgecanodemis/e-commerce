@@ -1,6 +1,7 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Link } from 'react-router-dom'; // Link bileşenini import ettik
 import homepSlide1 from '../assets/homepSlide1.jpeg';
 import homepSlide2 from '../assets/homepSlide2.jpg';
 import homepSlide3 from '../assets/homepSlide3.jpg';
@@ -27,9 +28,9 @@ const Slider = () => {
                         <p className="text-sm mt-2">
                             We know how large objects will act, but things on a small scale.
                         </p>
-                        <button className="custom-button">
+                        <Link to="/shop" className="custom-button"> {/* Link ile Shop sayfasına yönlendirme */}
                             SHOP NOW
-                        </button>
+                        </Link>
                     </div>
                 </div>
                 <div className="relative flex flex-col items-center justify-center h-full">
@@ -40,9 +41,9 @@ const Slider = () => {
                         <h4 className="text-[20px] mt-2">
                             We know how large objects will act, but things on a small scale.
                         </h4>
-                        <button className="custom-button">
+                        <Link to="/shop" className="custom-button"> {/* Link ile Shop sayfasına yönlendirme */}
                             SHOP NOW
-                        </button>
+                        </Link>
                     </div>
                 </div>
                 <div className="relative flex flex-col items-center justify-center h-full">
@@ -53,9 +54,9 @@ const Slider = () => {
                         <p className="text-sm mt-2">
                             We know how large objects will act, but things on a small scale.
                         </p>
-                        <button className="custom-button">
+                        <Link to="/shop" className="custom-button"> {/* Link ile Shop sayfasına yönlendirme */}
                             SHOP NOW
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </Carousel>
