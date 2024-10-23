@@ -22,9 +22,9 @@ const ProductPage = ({ limit, page }) => {
         return <p>Loading products...</p>;
     }
 
-    // Sınırlandırma için slice kullanıyoruz
-    const startIndex = (page - 1) * limit;
-    const limitedProducts = products.slice(startIndex, startIndex + limit);
+    // Sınırlandırma sadece limit varsa uygulanacak
+    const startIndex = limit ? (page - 1) * limit : 0;
+    const limitedProducts = limit ? products.slice(startIndex, startIndex + limit) : products;
 
     return (
         <div className="p-4">

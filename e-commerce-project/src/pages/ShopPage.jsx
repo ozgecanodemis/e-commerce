@@ -86,6 +86,7 @@ const ShopPage = () => {
             {/* Ürün Listesi için boşluk ve ayrı alan */}
             <div className="mt-6">
                 <ProductPage limit={itemsPerPage} page={currentPage} />
+
             </div>
 
             {/* Sayfa Seçim Butonları */}
