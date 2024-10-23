@@ -5,7 +5,7 @@ import { Facebook, Instagram, Twitter } from 'react-feather'; // Feather Icons'd
 
 const Footer = () => {
     return (
-        <footer className="w-[414px] h-[1342px] flex flex-col  gap-[40px]">
+        <footer className="w-[414px] h-[1342px] flex flex-col gap-[40px] pl-4">
 
             {/* Brand Name */}
 
