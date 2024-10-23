@@ -5,11 +5,11 @@ import { Facebook, Instagram, Twitter } from 'react-feather'; // Feather Icons'd
 
 const Footer = () => {
     return (
-        <footer className="w-[414px] h-[1342px] flex flex-col items-center gap-[40px]  p-4">
+        <footer className="w-[414px] h-[1342px] flex flex-col items-center gap-[40px] mt-0 ">
 
             {/* Brand Name */}
 
-            <div className='bg-[#FAFAFA] w-[414px]  flex flex-col items-center gap-[20px]  p-4'>
+            <div className='bg-[#FAFAFA] w-[414px]  flex flex-col items-center gap-[20px] mt-0 p-4'>
                 <h3 className="text-[24px] font-bold text-[#252B42]">Brand Name</h3>
 
                 {/* Social Media Icons */}

@@ -216,14 +216,50 @@ h3 {
 
 }
 
-.button {
-    background-color: #F3F3F3;
-    padding: 10px;
-    border: none;
+/* First ve Next butonları */
+.button-first-next {
+    background-color: #FFFFFF;
+    width: 85px;
+    height: 74px;
+    border: 1px solid #BDBDBD;
+    padding: 25px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #23A6F0;
     cursor: pointer;
 }
 
-.button:hover {
-    background-color: #E0E0E0;
+.button-first-next:hover {
+    background-color: #FFFFFF;
+    border: 1px solid #BDBDBD;
+}
 
+/* Sayfa numaraları butonları (1-2-3) */
+.button-page-number {
+    background-color: #FFFFFF;
+    width: 46px;
+    height: 74px;
+    border: 1px solid #BDBDBD;
+    padding: 25px 20px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    color: #23A6F0;
+    cursor: pointer;
+}
+
+.button-page-number:hover {
+    background-color: #23A6F0;
+    color: #FFFFFF;
+}
+
+.active {
+    background-color: #23A6F0;
+    color: #FFFFFF;
 }
