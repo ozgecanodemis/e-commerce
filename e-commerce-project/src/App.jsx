@@ -8,7 +8,6 @@ import ProductDetails from './pages/ProductDetails.jsx';
 
 const App = () => {
   return (
-
     <Router>
       <Layout>
         <Switch>
@@ -18,7 +17,6 @@ const App = () => {
         </Switch>
       </Layout>
     </Router>
-
   );
 };
 

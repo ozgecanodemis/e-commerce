@@ -48,7 +48,7 @@ const Layout = ({ children, location }) => {
             </main>
 
             {/* Footer */}
-            {isShopPage && <Footer />} {/* Footer yalnızca ShopPage'de görünecek */}
+            {isShopPage && <Footer />}
         </div>
     );
 };

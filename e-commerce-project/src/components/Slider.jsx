@@ -28,7 +28,7 @@ const Slider = () => {
                         <p className="text-sm mt-2">
                             We know how large objects will act, but things on a small scale.
                         </p>
-                        <Link to="/shop" className="custom-button"> {/* Link ile Shop sayfasına yönlendirme */}
+                        <Link to="/shop" className="custom-button">
                             SHOP NOW
                         </Link>
                     </div>
@@ -41,7 +41,7 @@ const Slider = () => {
                         <h4 className="text-[20px] mt-2">
                             We know how large objects will act, but things on a small scale.
                         </h4>
-                        <Link to="/shop" className="custom-button"> {/* Link ile Shop sayfasına yönlendirme */}
+                        <Link to="/shop" className="custom-button">
                             SHOP NOW
                         </Link>
                     </div>
@@ -54,7 +54,7 @@ const Slider = () => {
                         <p className="text-sm mt-2">
                             We know how large objects will act, but things on a small scale.
                         </p>
-                        <Link to="/shop" className="custom-button"> {/* Link ile Shop sayfasına yönlendirme */}
+                        <Link to="/shop" className="custom-button">
                             SHOP NOW
                         </Link>
                     </div>

@@ -265,3 +265,27 @@ h3 {
     background-color: #23A6F0;
     color: #FFFFFF;
 }
+
+.text-content {
+    width: 303px;
+    height: auto;
+    gap: 10px;
+
+}
+
+.text-content h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0.1px;
+    text-align: left;
+    color: #252B42;
+
+}
+
+.text-content p {
+    margin-top: 10px;
+    color: #737373;
+
+}

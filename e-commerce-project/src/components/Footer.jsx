@@ -1,11 +1,12 @@
 
 
+
 import React from 'react';
 import { Facebook, Instagram, Twitter } from 'react-feather'; // Feather Icons'dan sosyal medya ikonları
 
 const Footer = () => {
     return (
-        <footer className="w-[414px] h-[1342px] flex flex-col gap-[40px] pl-4">
+        <footer className="w-[414px] h-[1342px] flex flex-col items-center gap-[40px]  p-4">
 
             {/* Brand Name */}
 
