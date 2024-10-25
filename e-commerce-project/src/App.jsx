@@ -5,6 +5,7 @@ import HomePage from './components/HomePage';
 import './index.css';
 import ShopPage from './pages/ShopPage';
 import ProductDetails from './pages/ProductDetails.jsx';
+import Contact from './pages/Contact.jsx'; // Import the new Contact component
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
           <Route exact path="/product/:id" component={ProductDetails} />
+          <Route path="/contact" component={Contact} /> {/* Add this new route */}
         </Switch>
       </Layout>
     </Router>
