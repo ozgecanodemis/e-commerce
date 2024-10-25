@@ -42,21 +42,6 @@ const ProductDetails = () => {
 
     return (
         <div className="flex-col min-h-screen bg-[#FFFFF]" style={{ width: '414px' }}>
-            {/* Iconlar ve Navigation */}
-            <div className="flex flex-col items-center space-y-4 py-4">
-                <div className="flex items-center space-x-2">
-                    <User className="text-[#252B42]" />
-                    <span className="text-[#252B42] text-xl">Login/Register</span>
-                </div>
-                <Search className="text-[#252B42]" />
-                <ShoppingCart className="text-[#252B42]" />
-                <Heart className="text-[#252B42]" />
-            </div>
-
-            {/* Home > Shop Navigasyonu */}
-            <div className="text-center mb-4">
-                <Link to="/" className="text-[#252B42]">Home</Link> &gt; <Link to="/shop" className="text-[#252B42]">Shop</Link>
-            </div>
 
             {/* Ürün Detayları */}
             <main className="flex-grow p-4">
@@ -118,7 +103,7 @@ const ProductDetails = () => {
             </section>
             <img src={bransIcons} className='w-[414px] pl-4' />
             {/* Footer */}
-            <Footer />
+
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../index.css';
+import { Link } from 'react-router-dom';
 
 const ProductPage = ({ limit, page }) => {
     const [products, setProducts] = useState([]);
@@ -44,7 +45,7 @@ const ProductPage = ({ limit, page }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto">
                 {displayProducts.map(product => (
                     <div key={product.id} className="product-card p-4 border rounded-lg shadow-md transition-transform duration-200 hover:scale-105">
-                        <img src={product.image} alt={product.title} className="w-full h-auto mb-4" />
+                        <Link to={`/product/${product.id}`}> <img src={product.image} alt={product.title} className="w-full h-auto mb-4" />  </Link>
                         <div className="product-info">
                             <h2 className="text-[16px] font-[700] text-[#252B42] leading-[24px] tracking-[0.1px] text-center font-montserrat">
                                 {product.title}

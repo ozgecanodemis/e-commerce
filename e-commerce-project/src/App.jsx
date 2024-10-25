@@ -15,7 +15,7 @@ const App = () => {
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
           <Route exact path="/product/:id" component={ProductDetails} />
-          <Route path="/contact" component={Contact} /> {/* Add this new route */}
+          <Route path="/contact" component={Contact} />
         </Switch>
       </Layout>
     </Router>
