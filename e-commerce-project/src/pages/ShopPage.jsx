@@ -83,7 +83,7 @@ const ShopPage = () => {
                     </div>
 
                     {/* Sayfa Seçim Butonları */}
-                    <div className="button-group mt-6 flex flex-row justify-center items-center">
+                    <div className="button-group mt-20 flex flex-row justify-center items-center">
                         <button onClick={handleFirstPage} disabled={currentPage === 1} className="button-first-next">First</button>
 
                         {/* 1, 2, 3 butonları */}

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Link } from 'react-router-dom'; // Link bileşenini import ettik
 import homepSlide1 from '../assets/homepSlide1.jpeg';
 import homepSlide2 from '../assets/homepSlide2.jpg';
 import homepSlide3 from '../assets/homepSlide3.jpg';
@@ -28,9 +27,9 @@ const Slider = () => {
                         <p className="text-sm mt-2">
                             We know how large objects will act, but things on a small scale.
                         </p>
-                        <Link to="/shop" className="custom-button">
+                        <button className="custom-button">
                             SHOP NOW
-                        </Link>
+                        </button>
                     </div>
                 </div>
                 <div className="relative flex flex-col items-center justify-center h-full">
@@ -41,9 +40,9 @@ const Slider = () => {
                         <h4 className="text-[20px] mt-2">
                             We know how large objects will act, but things on a small scale.
                         </h4>
-                        <Link to="/shop" className="custom-button">
+                        <button className="custom-button">
                             SHOP NOW
-                        </Link>
+                        </button>
                     </div>
                 </div>
                 <div className="relative flex flex-col items-center justify-center h-full">
@@ -54,9 +53,9 @@ const Slider = () => {
                         <p className="text-sm mt-2">
                             We know how large objects will act, but things on a small scale.
                         </p>
-                        <Link to="/shop" className="custom-button">
+                        <button className="custom-button">
                             SHOP NOW
-                        </Link>
+                        </button>
                     </div>
                 </div>
             </Carousel>

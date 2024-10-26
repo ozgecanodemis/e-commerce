@@ -1,32 +1,33 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import Slider2 from '../assets/Slider2.png';
+import slider2 from '../assets/slider2.png';
 import homepSlide2 from '../assets/homepSlide2.jpg';
 import homepSlide3 from '../assets/homepSlide3.jpg';
 
 const Slider = () => {
     return (
-        <section className="flex flex-col items-center justify-center relative mx-auto bg-[#23856D]">
+        <section className="flex flex-col items-center justify-center relative">
             <Carousel
                 showArrows={true}
                 autoPlay={false}
                 infiniteLoop={true}
                 showThumbs={false}
-                className="w-full max-w-[414px] h-[calc(100vh-100px)] gap-[30px]" // Responsive genişlik ve yükseklik
+                className="w-[414px] h-[753px] gap-[30px] border-t-[1px]"
                 style={{
                     borderRadius: '5px 0px 0px 0px',
                     opacity: 0.9,
                 }}
             >
                 <div className="relative flex flex-col items-center justify-center h-full">
-                    <img src={Slider2} className="w-full h-[681px] object-cover" />
+                    <img src={slider2} alt="Slide 1" className="w-full h-[753px] object-cover bg-[#23856D]" />
                     <div className="absolute top-1/4 w-[268px] text-center text-white flex flex-col items-center space-y-10">
                         <p className="text-lg">SUMMER 2020</p>
-                        <h1 className="text-4xl font-bold">Vita Classic Product</h1>
+                        <h1 className="text-4xl font-bold">NEW COLLECTION</h1>
                         <p className="text-sm mt-2">
                             We know how large objects will act, but things on a small scale.
                         </p>
+                        <p>$16,48</p>
                         <button className="custom-button">
                             ADD TO CART
                         </button>
@@ -34,12 +35,12 @@ const Slider = () => {
                 </div>
                 <div className="relative flex flex-col items-center justify-center h-full">
                     <img src={homepSlide2} alt="Slide 2" className="w-full h-[753px] object-cover" />
-                    <div className="absolute top-1/4 w-[268px] text-center text-white flex flex-col items-center space-y-4">
-                        <p className="text-lg">SUMMER 2020</p>
-                        <h1 className="text-4xl font-bold">NEW COLLECTION</h1>
-                        <p className="text-sm mt-2">
+                    <div className="absolute top-1/4 w-full text-center text-white flex flex-col items-center space-y-4">
+                        <h4 className="text-lg">SUMMER 2020</h4>
+                        <h1 className="text-4xl font-bold text-center">NEW COLLECTION</h1>
+                        <h4 className="text-[20px] mt-2">
                             We know how large objects will act, but things on a small scale.
-                        </p>
+                        </h4>
                         <button className="custom-button">
                             ADD TO CART
                         </button>
@@ -47,9 +48,9 @@ const Slider = () => {
                 </div>
                 <div className="relative flex flex-col items-center justify-center h-full">
                     <img src={homepSlide3} alt="Slide 3" className="w-full h-[753px] object-cover" />
-                    <div className="absolute top-1/4 w-[268px] text-center text-white flex flex-col items-center space-y-4">
+                    <div className="absolute top-1/4 w-full text-center text-white flex flex-col items-center space-y-4">
                         <p className="text-lg">SUMMER 2020</p>
-                        <h1 className="text-4xl font-bold">NEW COLLECTION</h1>
+                        <h1 className="text-4xl font-bold w-full">NEW COLLECTION</h1>
                         <p className="text-sm mt-2">
                             We know how large objects will act, but things on a small scale.
                         </p>

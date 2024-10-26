@@ -17,6 +17,7 @@ const Layout = ({ children }) => {
                         <Link to="/blog" className="hover:text-gray-300">Blog</Link>
                         <Link to="/contact" className="hover:text-gray-300">Contact</Link>
                         <Link to="/pages" className="hover:text-gray-300">Pages</Link>
+                        <Link to="/team" className="hover:text-gray-300">Team</Link>
                     </nav>
                     <div className="hidden md:flex items-center space-x-4">
                         <div className="flex items-center">
@@ -48,6 +49,7 @@ const Layout = ({ children }) => {
                         <Link to="/blog" className="py-2">Blog</Link>
                         <Link to="/contact" className="py-2">Contact</Link>
                         <Link to="/pages" className="py-2">Pages</Link>
+                        <Link to="/team" className="py-2">Team</Link>
                     </nav>
                     <div className="flex flex-col items-center py-4">
                         <div className="flex items-center py-2">
@@ -128,7 +130,7 @@ const Layout = ({ children }) => {
                             <h4 className="font-bold mb-4">Get In Touch</h4>
                             <form className="flex flex-col space-y-2">
                                 <input type="email" placeholder="Your Email" className="p-2 border rounded" />
-                                <button type="submit" className="bg-[#23A6F0] text-white p-2 rounded">Subscribe</button>
+                                <button type="submit" className="custom-button">Subscribe</button>
                             </form>
                         </div>
                     </div>

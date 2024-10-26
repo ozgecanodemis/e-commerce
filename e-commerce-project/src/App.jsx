@@ -6,6 +6,8 @@ import './index.css';
 import ShopPage from './pages/ShopPage';
 import ProductDetails from './pages/ProductDetails.jsx';
 import Contact from './pages/Contact.jsx'; // Import the new Contact component
+import TeamPage from './pages/TeamPage.jsx';
+import AboutUs from './pages/AboutUs.jsx';
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
           <Route path="/shop" component={ShopPage} />
           <Route exact path="/product/:id" component={ProductDetails} />
           <Route path="/contact" component={Contact} />
+          <Route path="/team" component={TeamPage} />
+          <Route path="/about" component={AboutUs} />
         </Switch>
       </Layout>
     </Router>
