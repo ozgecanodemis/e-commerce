@@ -191,8 +191,7 @@ const SignUpForm = () => {
                 <div>
                     <button
                         type="submit"
-                        className="  w-full p-2 bg-[#2DC071]
-    text-white rounded hover:bg-[#28a65c;] flex justify-center items-center "
+                        className="w-full p-2 bg-[#2DC071] text-white rounded hover:[#28a745] flex justify-center items-center"
                         disabled={isLoading}
                     >
                         {isLoading ? <div className="w-5 h-5 border-4 border-t-transparent border-white rounded-full animate-spin"></div> : 'Sign Up'}

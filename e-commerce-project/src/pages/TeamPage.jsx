@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import ozgecanImage from '../assets/oo.jpg';
+import Brands from '../components/Brands';
 
 const TeamPage = () => {
     return (
@@ -13,9 +14,9 @@ const TeamPage = () => {
                 </p>
             </div>
             {/* Container for Members */}
-            <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center items-center my-16 gap-6">
+            <div className="flex flex-col justify-center items-center p-4 my-16 gap-6 sm:flex-row sm:flex-wrap">
                 {/* Team Member 1 */}
-                <div className="w-[241px] h-auto mb-6 flex flex-col items-center">
+                <div className="w-[241px] h-auto mb-6 flex flex-col  items-center">
                     <div className="bg-white overflow-hidden shadow-lg max-w-[241px] h-[423px]">
                         <div className="h-[280px] overflow-hidden">
                             <img
@@ -67,7 +68,7 @@ const TeamPage = () => {
                     </div>
                 </div>
                 {/* Team Member 3 */}
-                <div className="w-[241px] h-auto mb-6 flex flex-col items-center">
+                <div className="w-[241px] h-auto mb-6 flex flex-col  items-center">
                     <div className="bg-white overflow-hidden shadow-lg max-w-[241px] h-[423px]">
                         <div className="h-[280px] overflow-hidden">
                             <img
@@ -119,6 +120,7 @@ const TeamPage = () => {
                     </div>
                 </div>
             </div>
+            <Brands />
         </div>
     );
 };

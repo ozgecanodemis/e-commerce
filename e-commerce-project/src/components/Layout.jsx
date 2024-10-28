@@ -21,10 +21,12 @@ const Layout = ({ children }) => {
                         <Link to="/team" className="hover:text-gray-300">Team</Link>
                     </nav>
                     <div className="hidden md:flex items-center space-x-4">
-                        <div className="flex items-center">
-                            <User className="mr-2" />
-                            <span>Login / Register</span>
-                        </div>
+                        <Link to="/signup">
+                            <div className="flex items-center">
+                                <User className="mr-2" />
+                                <span>Login / Register</span>
+                            </div>
+                        </Link>
                         <Search />
                         <div className="flex items-center">
                             <ShoppingCart className="mr-2" />
@@ -131,7 +133,7 @@ const Layout = ({ children }) => {
                             <h4 className="font-bold mb-4">Get In Touch</h4>
                             <form className="flex flex-col space-y-2">
                                 <input type="email" placeholder="Your Email" className="p-2 border rounded" />
-                                <button type="submit" className="custom-button">Subscribe</button>
+                                <button type="submit" className="button-3">Subscribe</button>
                             </form>
                         </div>
                     </div>

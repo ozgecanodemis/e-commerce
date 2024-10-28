@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter, Link, useParams } from 'react-router-dom'; // Link ve useParams'i içe aktar
 import { User, Search, ShoppingCart, Heart, Eye } from 'react-feather';
 import axios from 'axios';
-import Brands from '../components/Brands';
+import Brands from '../components/Brands.jsx';
 
 
 const ProductDetails = () => {
@@ -87,21 +87,22 @@ const ProductDetails = () => {
             </main>
 
             {/* Diğer Ürünler */}
-            <section className="flex flex-col items-center justify-center mt-12 md:mt-24 p-20 ">
+            <section className="w-[331px] h-auto mx-auto p-[48px_0] space-y-[24px]">
                 <h2 className="text-[20px] font-bold text-center mb-4">Bestseller Products</h2>
                 <div className="flex flex-wrap justify-center gap-4"> {/* flex-wrap ve justify-center ekledik */}
                     {otherProducts.map((product) => (
-                        <Link key={product.id} to={⁠ /product/${product.id} ⁠}>
-                    <div className=" p-4 text-center w-[328px] h-auto">
-                        <img src={product.image} alt={product.title} className="h-[150px] w-full object-contain mb-2" />
-                        <p className="text-sm font-medium">{product.title}</p>
-                        <p className="text-xs text-[#737373]">${product.price}</p>
-                    </div>
-                </Link>
+                        <Link key={product.id} to={`/product/${product.id}`}>
+                            <div className="border p-4 text-center w-[328px] h-auto">
+                                <img src={product.image} alt={product.title} className="h-[150px] w-full object-contain mb-2" />
+                                <p className="text-sm font-medium">{product.title}</p>
+                                <p className="text-xs text-[#737373]">${product.price}</p>
+                            </div>
+                        </Link>
                     ))}
-        </div>
-            </section >
-    <Brands />
+                </div>
+            </section>
+
+            <Brands />
 
 
         </div >

@@ -79,7 +79,8 @@ h4 {
     line-height: var(--h4-line-height);
     letter-spacing: var(--letter-spacing);
     text-align: var(--text-align);
-    color: white;
+    color: #252B42;
+
     /* Metin rengini ayarlamak için eklenebilir */
 }
 
@@ -198,8 +199,8 @@ h3 {
     border-radius: 5px;
     color: #23A6F0;
     border: 2px solid #23A6F0;
-    background: transparent;
-    transition: background 0.3s, color 0.3s;
+    background: ;
+
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     font-weight: 700;
@@ -216,14 +217,76 @@ h3 {
 
 }
 
-.button {
-    background-color: #F3F3F3;
-    padding: 10px;
-    border: none;
+/* First ve Next butonları */
+.button-first-next {
+    background-color: #FFFFFF;
+    width: 85px;
+    height: 74px;
+    border: 1px solid #E8E8E8;
+    padding: 25px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #23A6F0;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
-.button:hover {
-    background-color: #E0E0E0;
+.button-first-next:hover {
+    background-color: #BDBDBD;
+    border: 1px solid #BDBDBD;
+}
+
+/* Sayfa numaraları butonları (1-2-3) */
+.button-page-number {
+    background-color: #FFFFFF;
+    width: 46px;
+    height: 74px;
+    border: 1px solid #E8E8E8;
+    padding: 25px 20px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    color: #23A6F0;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.button-page-number:hover {
+    background-color: #BDBDBD;
+    color: #FFFFFF;
+}
+
+.active {
+    background-color: #23A6F0;
+    color: #FFFFFF;
+}
+
+.text-content {
+    width: 303px;
+    height: auto;
+    gap: 10px;
+
+}
+
+.text-content h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0.1px;
+    text-align: left;
+    color: #252B42;
+
+}
+
+.text-content p {
+    margin-top: 10px;
+    color: #737373;
 
 }
