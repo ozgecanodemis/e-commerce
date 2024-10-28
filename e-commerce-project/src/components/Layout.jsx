@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { User, Search, ShoppingCart, Heart, Menu, X } from 'react-feather';
 
+
+
 const Layout = ({ children }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
