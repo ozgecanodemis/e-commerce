@@ -1,56 +1,147 @@
-import React from 'react';
-import { withRouter, Link } from 'react-router-dom'; // Link'i içe aktar
-import { User, Search, ShoppingCart, Menu, Heart } from 'react-feather';
-import Footer from './Footer'; // Footer bileşenini içe aktar
 
-const Layout = ({ children, location }) => {
-    const isShopPage = location.pathname === '/shop'; // ShopPage rotası mı?
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { User, Search, ShoppingCart, Heart, Menu, X } from 'react-feather';
+
+const Layout = ({ children }) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <div className="flex-col min-h-screen bg-[#FFFFF]" style={{ width: '414px' }}>
-            {/* Header */}
-            <header className="flex justify-between items-center p-4 text-[#252B42]">
-                <h3 className='font-bold text-[16px]'>Brand Name</h3>
-                <div className="flex">
-                    <Menu className="text-[#252B42]" />
-
-
+        <div className="flex flex-col min-h-screen">
+            <header className="bg-white text-black md:bg-[#23856D] md:text-white">
+                <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+                    <Link to="/" className="text-2xl font-bold">Bandage</Link>
+                    <nav className="hidden md:flex space-x-6">
+                        <Link to="/" className="hover:text-gray-300">Home</Link>
+                        <Link to="/shop" className="hover:text-gray-300">Shop</Link>
+                        <Link to="/about" className="hover:text-gray-300">About</Link>
+                        <Link to="/blog" className="hover:text-gray-300">Blog</Link>
+                        <Link to="/contact" className="hover:text-gray-300">Contact</Link>
+                        <Link to="/pages" className="hover:text-gray-300">Pages</Link>
+                        <Link to="/team" className="hover:text-gray-300">Team</Link>
+                    </nav>
+                    <div className="hidden md:flex items-center space-x-4">
+                        <div className="flex items-center">
+                            <User className="mr-2" />
+                            <span>Login / Register</span>
+                        </div>
+                        <Search />
+                        <div className="flex items-center">
+                            <ShoppingCart className="mr-2" />
+                            <span>1</span>
+                        </div>
+                        <div className="flex items-center">
+                            <Heart className="mr-2" />
+                            <span>1</span>
+                        </div>
+                    </div>
+                    <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                        {isMenuOpen ? <X /> : <Menu />}
+                    </button>
                 </div>
             </header>
 
-            {/* Navigation Menu */}
-            <nav className="flex flex-col justify-center items-center h-[410px] p-2">
-                <Link to="/" className="text-[#737373] text-3xl block py-2 hover:font-extralight">Home</Link>
-                <Link to="/shop" className="text-[#737373] text-3xl block py-2 hover:font-extralight">Shop</Link>
-                <Link to="#pricing" className="text-[#737373] text-3xl block py-2 hover:font-extralight">Pricing</Link>
-                <Link to="#contact" className="text-[#737373] text-3xl block py-2 hover:font-extralight">Contact</Link>
-            </nav>
-
-            {/* Koşullu render: ShopPage'de mi? */}
-            {isShopPage ? (
-                <div className="flex flex-col items-center space-y-4 py-4">
-                    <div className="flex items-center space-x-2">
-                        <User className="text-[#252B42]" />
-                        <span className="text-[#252B42] text-xl">Login/Register</span>
+            {isMenuOpen && (
+                <div className="md:hidden bg-white">
+                    <nav className="flex flex-col items-center py-4">
+                        <Link to="/" className="py-2">Home</Link>
+                        <Link to="/shop" className="py-2">Shop</Link>
+                        <Link to="/about" className="py-2">About</Link>
+                        <Link to="/blog" className="py-2">Blog</Link>
+                        <Link to="/contact" className="py-2">Contact</Link>
+                        <Link to="/pages" className="py-2">Pages</Link>
+                        <Link to="/team" className="py-2">Team</Link>
+                    </nav>
+                    <div className="flex flex-col items-center py-4">
+                        <div className="flex items-center py-2">
+                            <User className="mr-2" />
+                            <span>Login / Register</span>
+                        </div>
+                        <Search className="py-2" />
+                        <div className="flex items-center py-2">
+                            <ShoppingCart className="mr-2" />
+                            <span>1</span>
+                        </div>
+                        <div className="flex items-center py-2">
+                            <Heart className="mr-2" />
+                            <span>1</span>
+                        </div>
                     </div>
-                    <Search className="text-[#252B42]" />
-                    <ShoppingCart className="text-[#252B42]" />
-                    <Heart className="text-[#252B42]" />
-                </div>
-            ) : (
-                <div className="flex space-x-4 p-4">
                 </div>
             )}
 
-            {/* Ana İçerik */}
             <main className="flex-grow">
                 {children}
             </main>
 
-            {/* Footer */}
-            {isShopPage && <Footer />} {/* Footer yalnızca ShopPage'de görünecek */}
+            <footer className="bg-[#FAFAFA] text-black">
+                <div className="container mx-auto px-4 py-8">
+                    <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+                        <h3 className="text-2xl font-bold mb-4 md:mb-0">Bandage</h3>
+                        <div className="flex space-x-4">
+                            <a href="#" className="text-blue-500 hover:text-blue-700">
+                                <i className="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" className="text-blue-500 hover:text-blue-700">
+                                <i className="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" className="text-blue-500 hover:text-blue-700">
+                                <i className="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+                        <div>
+                            <h4 className="font-bold mb-4">Company Info</h4>
+                            <ul className="space-y-2">
+                                <li><Link to="/about">About Us</Link></li>
+                                <li><Link to="/carrier">Carrier</Link></li>
+                                <li><Link to="/hiring">We are hiring</Link></li>
+                                <li><Link to="/blog">Blog</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-bold mb-4">Legal</h4>
+                            <ul className="space-y-2">
+                                <li><Link to="/about">About Us</Link></li>
+                                <li><Link to="/carrier">Carrier</Link></li>
+                                <li><Link to="/hiring">We are hiring</Link></li>
+                                <li><Link to="/blog">Blog</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-bold mb-4">Features</h4>
+                            <ul className="space-y-2">
+                                <li><Link to="/business">Business Marketing</Link></li>
+                                <li><Link to="/analytics">User Analytics</Link></li>
+                                <li><Link to="/chat">Live Chat</Link></li>
+                                <li><Link to="/support">Unlimited Support</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-bold mb-4">Resources</h4>
+                            <ul className="space-y-2">
+                                <li><Link to="/ios">IOS & Android</Link></li>
+                                <li><Link to="/demo">Watch a Demo</Link></li>
+                                <li><Link to="/customers">Customers</Link></li>
+                                <li><Link to="/api">API</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-bold mb-4">Get In Touch</h4>
+                            <form className="flex flex-col space-y-2">
+                                <input type="email" placeholder="Your Email" className="p-2 border rounded" />
+                                <button type="submit" className="custom-button">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div className="mt-8 text-center">
+                        <p>&copy; 2023 Bandage. All Rights Reserved</p>
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 };
 
-export default withRouter(Layout);
+export default Layout;

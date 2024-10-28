@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import ProductPage from './components/ProductPage';
 import './index.css';
 import ShopPage from './pages/ShopPage';
+import TeamPage from './pages/TeamPage';
 
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
+          <Route path="/team" component={TeamPage} />
         </Switch>
       </Layout>
     </Router>

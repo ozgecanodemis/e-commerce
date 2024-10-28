@@ -15,7 +15,7 @@ const HomePage = () => {
             <ProductPage />
             <Slider2 />
             <MobileBlog />
-            <Footer />
+
         </>
     );
 };
