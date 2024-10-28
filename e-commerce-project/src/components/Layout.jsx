@@ -1,9 +1,7 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User, Search, ShoppingCart, Heart, Menu, X } from 'react-feather';
-
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faSearch, faShoppingCart, faHeart, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Layout = ({ children }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,22 +23,22 @@ const Layout = ({ children }) => {
                     <div className="hidden md:flex items-center space-x-4">
                         <Link to="/signup">
                             <div className="flex items-center">
-                                <User className="mr-2" />
+                                <FontAwesomeIcon icon={faUser} className="mr-2" />
                                 <span>Login / Register</span>
                             </div>
                         </Link>
-                        <Search />
+                        <FontAwesomeIcon icon={faSearch} />
                         <div className="flex items-center">
-                            <ShoppingCart className="mr-2" />
+                            <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
                             <span>1</span>
                         </div>
                         <div className="flex items-center">
-                            <Heart className="mr-2" />
+                            <FontAwesomeIcon icon={faHeart} className="mr-2" />
                             <span>1</span>
                         </div>
                     </div>
                     <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                        {isMenuOpen ? <X /> : <Menu />}
+                        {isMenuOpen ? <FontAwesomeIcon icon={faTimes} /> : <FontAwesomeIcon icon={faBars} />}
                     </button>
                 </div>
             </header>
@@ -58,16 +56,16 @@ const Layout = ({ children }) => {
                     </nav>
                     <div className="flex flex-col items-center py-4">
                         <div className="flex items-center py-2">
-                            <User className="mr-2" />
+                            <FontAwesomeIcon icon={faUser} className="mr-2" />
                             <span>Login / Register</span>
                         </div>
-                        <Search className="py-2" />
+                        <FontAwesomeIcon icon={faSearch} className="py-2" />
                         <div className="flex items-center py-2">
-                            <ShoppingCart className="mr-2" />
+                            <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
                             <span>1</span>
                         </div>
                         <div className="flex items-center py-2">
-                            <Heart className="mr-2" />
+                            <FontAwesomeIcon icon={faHeart} className="mr-2" />
                             <span>1</span>
                         </div>
                     </div>
@@ -84,13 +82,13 @@ const Layout = ({ children }) => {
                         <h3 className="text-2xl font-bold mb-4 md:mb-0">Bandage</h3>
                         <div className="flex space-x-4">
                             <a href="#" className="text-blue-500 hover:text-blue-700">
-                                <i className="fab fa-facebook-f"></i>
+                                <FontAwesomeIcon icon={['fab', 'facebook-f']} />
                             </a>
                             <a href="#" className="text-blue-500 hover:text-blue-700">
-                                <i className="fab fa-instagram"></i>
+                                <FontAwesomeIcon icon={['fab', 'instagram']} />
                             </a>
                             <a href="#" className="text-blue-500 hover:text-blue-700">
-                                <i className="fab fa-twitter"></i>
+                                <FontAwesomeIcon icon={['fab', 'twitter']} />
                             </a>
                         </div>
                     </div>
