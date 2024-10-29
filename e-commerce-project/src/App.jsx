@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux'; // Provider'ı içe aktarıyoruz
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import ProductPage from './components/ProductPage';
@@ -10,26 +11,28 @@ import AboutUs from './pages/AboutUs';
 import Contact from './pages/Contact';
 import SignUpForm from './pages/SignUpForm';
 import BlogPage from './pages/BlogPage';
-
+import LoginForm from './pages/LoginForm';
+import store from './store/reducers/store';
 
 const App = () => {
   return (
-
-    <Router>
-      <Layout>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/product" component={ProductPage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route path="/about" component={AboutUs} />
-          <Route path="/team" component={TeamPage} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/signup" component={SignUpForm} />
-          <Route path="/blog" component={BlogPage} />
-        </Switch>
-      </Layout>
-    </Router>
-
+    <Provider store={store}>
+      <Router>
+        <Layout>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/product" component={ProductPage} />
+            <Route path="/shop" component={ShopPage} />
+            <Route path="/about" component={AboutUs} />
+            <Route path="/team" component={TeamPage} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/signup" component={SignUpForm} />
+            <Route path="/blog" component={BlogPage} />
+            <Route path="/login" component={LoginForm} />
+          </Switch>
+        </Layout>
+      </Router>
+    </Provider>
   );
 };
 
