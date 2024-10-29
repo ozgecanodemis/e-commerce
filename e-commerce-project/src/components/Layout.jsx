@@ -21,12 +21,15 @@ const Layout = ({ children }) => {
                         <Link to="/team" className="hover:text-gray-300">Team</Link>
                     </nav>
                     <div className="hidden md:flex items-center space-x-4">
-                        <Link to="/signup">
-                            <div className="flex items-center">
-                                <FontAwesomeIcon icon={faUser} className="mr-2" />
-                                <span>Login / Register</span>
-                            </div>
-                        </Link>
+
+                        <div className="flex items-center">
+                            <FontAwesomeIcon icon={faUser} className="mr-2" />
+                            <Link to="/login"> <span> Login </span> </Link>
+                            /
+                            <Link to="/signup"> <span> Register </span> </Link>
+
+                        </div>
+
                         <FontAwesomeIcon icon={faSearch} />
                         <div className="flex items-center">
                             <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />

@@ -9,6 +9,7 @@ import TeamPage from './pages/TeamPage';
 import AboutUs from './pages/AboutUs';
 import Contact from './pages/Contact';
 import SignUpForm from './pages/SignUpForm';
+import BlogPage from './pages/BlogPage';
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/team" component={TeamPage} />
           <Route path="/contact" component={Contact} />
           <Route path="/signup" component={SignUpForm} />
+          <Route path="/blog" component={BlogPage} />
         </Switch>
       </Layout>
     </Router>
