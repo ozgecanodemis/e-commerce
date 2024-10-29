@@ -102,3 +102,5 @@ const ShopPage = () => {
 };
 
 export default ShopPage;
+
+//changes trial 
