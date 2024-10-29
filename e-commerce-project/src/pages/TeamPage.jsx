@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import ozgecanImage from '../assets/oo.jpg';
-import Brands from '../components/Brands'
+import { Brands } from '../components/Brands'
 
 
 const TeamPage = () => {

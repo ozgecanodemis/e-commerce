@@ -2,7 +2,7 @@ import React from 'react';
 import aboutUs from '../assets/aboutUs.png';
 import TeamPage from './TeamPage.jsx';
 import AboutSep from '../components/AboutSep.jsx';
-import Brands from '../components/Brands.jsx'
+import { Brands } from '../components/Brands.jsx'
 
 const AboutUs = () => {
     return (
