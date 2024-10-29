@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductPage from '../components/ProductPage';
-import Brands from '../components/Brands';
+import { Brands } from '../components/Brands';
 
 const products = [
     { id: 1, name: 'Graphic Design', price: '$16.48', colors: ['sky', 'green', 'orange'] },
