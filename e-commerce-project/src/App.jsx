@@ -13,11 +13,14 @@ import SignUpForm from './pages/SignUpForm';
 import BlogPage from './pages/BlogPage';
 import LoginForm from './pages/LoginForm';
 import store from './store/reducers/store';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
     <Provider store={store}>
       <Router>
+        <ToastContainer position="top-right" autoClose={3000} />
         <Layout>
           <Switch>
             <Route exact path="/" component={HomePage} />
@@ -33,6 +36,7 @@ const App = () => {
         </Layout>
       </Router>
     </Provider>
+
   );
 };
 

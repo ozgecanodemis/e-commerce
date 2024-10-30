@@ -1,10 +1,32 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSearch, faShoppingCart, faHeart, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import md5 from 'md5';
+import { logoutUser } from '../pages/api/userSlice';
 
 const Layout = ({ children }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const user = useSelector(state => state.user?.user);
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const history = useHistory();
+
+    useEffect(() => {
+        setIsMenuOpen(false);
+    }, [location]);
+
+    const handleLogout = () => {
+        dispatch(logoutUser());
+        history.push('/');
+    };
+
+    const getGravatarUrl = (email) => {
+        const hash = md5(email.trim().toLowerCase());
+        return `https://www.gravatar.com/avatar/${hash}?d=mp`;
+    };
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -21,15 +43,24 @@ const Layout = ({ children }) => {
                         <Link to="/team" className="hover:text-gray-300">Team</Link>
                     </nav>
                     <div className="hidden md:flex items-center space-x-4">
-
-                        <div className="flex items-center">
-                            <FontAwesomeIcon icon={faUser} className="mr-2" />
-                            <Link to="/login"> <span> Login </span> </Link>
-                            /
-                            <Link to="/signup"> <span> Register </span> </Link>
-
-                        </div>
-
+                        {user ? (
+                            <div className="flex items-center">
+                                <img
+                                    src={getGravatarUrl(user.email)}
+                                    alt={user.name}
+                                    className="w-8 h-8 rounded-full mr-2"
+                                />
+                                <span>{user.name}</span>
+                                <button onClick={handleLogout} className="ml-2 text-sm">Logout</button>
+                            </div>
+                        ) : (
+                            <div className="flex items-center">
+                                <FontAwesomeIcon icon={faUser} className="mr-2" />
+                                <Link to="/login"><span>Login</span></Link>
+                                /
+                                <Link to="/signup"><span>Register</span></Link>
+                            </div>
+                        )}
                         <FontAwesomeIcon icon={faSearch} />
                         <div className="flex items-center">
                             <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
@@ -58,10 +89,24 @@ const Layout = ({ children }) => {
                         <Link to="/team" className="py-2">Team</Link>
                     </nav>
                     <div className="flex flex-col items-center py-4">
-                        <div className="flex items-center py-2">
-                            <FontAwesomeIcon icon={faUser} className="mr-2" />
-                            <span>Login / Register</span>
-                        </div>
+                        {user ? (
+                            <div className="flex items-center py-2">
+                                <img
+                                    src={getGravatarUrl(user.email)}
+                                    alt={user.name}
+                                    className="w-8 h-8 rounded-full mr-2"
+                                />
+                                <span>{user.name}</span>
+                                <button onClick={handleLogout} className="ml-2 text-sm">Logout</button>
+                            </div>
+                        ) : (
+                            <div className="flex items-center py-2">
+                                <FontAwesomeIcon icon={faUser} className="mr-2" />
+                                <Link to="/login"><span>Login</span></Link>
+                                /
+                                <Link to="/signup"><span>Register</span></Link>
+                            </div>
+                        )}
                         <FontAwesomeIcon icon={faSearch} className="py-2" />
                         <div className="flex items-center py-2">
                             <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
@@ -85,13 +130,13 @@ const Layout = ({ children }) => {
                         <h3 className="text-2xl font-bold mb-4 md:mb-0">Bandage</h3>
                         <div className="flex space-x-4">
                             <a href="#" className="text-blue-500 hover:text-blue-700">
-                                <FontAwesomeIcon icon={['fab', 'facebook-f']} />
+                                <FontAwesomeIcon icon={faFacebookF} />
                             </a>
                             <a href="#" className="text-blue-500 hover:text-blue-700">
-                                <FontAwesomeIcon icon={['fab', 'instagram']} />
+                                <FontAwesomeIcon icon={faInstagram} />
                             </a>
                             <a href="#" className="text-blue-500 hover:text-blue-700">
-                                <FontAwesomeIcon icon={['fab', 'twitter']} />
+                                <FontAwesomeIcon icon={faTwitter} />
                             </a>
                         </div>
                     </div>
@@ -133,15 +178,14 @@ const Layout = ({ children }) => {
                             </ul>
                         </div>
                         <div>
-                            <h4 className="font-bold mb-4">Get In Touch</h4>
-                            <form className="flex flex-col space-y-2">
-                                <input type="email" placeholder="Your Email" className="p-2 border rounded" />
-                                <button type="submit" className="button-3">Subscribe</button>
-                            </form>
+                            <h4 className="font-bold mb-4">Get in Touch</h4>
+                            <ul className="space-y-2">
+                                <li><Link to="/contact">Contact Us</Link></li>
+                                <li><Link to="/support">Support</Link></li>
+                                <li><Link to="/faq">FAQ</Link></li>
+                                <li><Link to="/terms">Terms of Service</Link></li>
+                            </ul>
                         </div>
-                    </div>
-                    <div className="mt-8 text-center">
-                        <p>&copy; 2023 Bandage. All Rights Reserved</p>
                     </div>
                 </div>
             </footer>
