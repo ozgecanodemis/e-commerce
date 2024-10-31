@@ -6,6 +6,7 @@ import { faUser, faSearch, faShoppingCart, faHeart, faBars, faTimes } from '@for
 import { faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { logoutUser } from '../store/actions/authActions';
 import md5 from 'md5';
+import Footer from './Footer';
 
 const Layout = ({ children }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -123,28 +124,8 @@ const Layout = ({ children }) => {
             <main className="flex-grow">
                 {children}
             </main>
+            <Footer />
 
-            <footer className="bg-[#FAFAFA] text-black">
-                <div className="container mx-auto px-4 py-8">
-                    <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-                        <h3 className="text-2xl font-bold mb-4 md:mb-0">Bandage</h3>
-                        <div className="flex space-x-4">
-                            <a href="#" className="text-blue-500 hover:text-blue-700">
-                                <FontAwesomeIcon icon={faFacebookF} />
-                            </a>
-                            <a href="#" className="text-blue-500 hover:text-blue-700">
-                                <FontAwesomeIcon icon={faInstagram} />
-                            </a>
-                            <a href="#" className="text-blue-500 hover:text-blue-700">
-                                <FontAwesomeIcon icon={faTwitter} />
-                            </a>
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-                        {/* Footer Links Here */}
-                    </div>
-                </div>
-            </footer>
         </div>
     );
 };
