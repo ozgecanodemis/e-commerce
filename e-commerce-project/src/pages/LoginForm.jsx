@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
-import { loginUser, FETCH_STATES } from "../store/actions/authActions"; // Import FETCH_STATES here
+import { loginUser } from "../store/actions/authActions";
+import { FETCH_STATES } from "../store/reducers/userReducer";
 import { toast } from "react-toastify";
 import useLocalStorage from "../hooks/useLocalStorage";
+import md5 from 'md5';
 
 function LoginForm() {
     const [rememberMe, setRememberMe] = useState(false);

@@ -15,6 +15,7 @@ import store from './store/store';
 import { ToastContainer } from 'react-toastify';
 import { verifyToken } from './store/actions/authActions';
 import 'react-toastify/dist/ReactToastify.css';
+import LoginPage from './pages/LoginPage';
 
 const App = () => {
   useEffect(() => {
@@ -35,7 +36,7 @@ const App = () => {
             <Route path="/contact" component={Contact} />
             <Route path="/signup" component={SignUpForm} />
             <Route path="/blog" component={BlogPage} />
-            <Route path="/login" component={LoginForm} />
+            <Route path="/login" component={LoginPage} />
           </Switch>
         </Layout>
       </Router>
