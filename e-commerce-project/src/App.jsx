@@ -13,12 +13,11 @@ import BlogPage from './pages/BlogPage';
 import LoginForm from './pages/LoginForm';
 import store from './store/store';
 import { ToastContainer } from 'react-toastify';
-import { verifyToken } from '../src/store/actions/authActions'; // Doğru yol ve uzantı
+import { verifyToken } from './store/actions/authActions';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   useEffect(() => {
-    // Token doğrulama işlemi
     store.dispatch(verifyToken());
   }, []);
 

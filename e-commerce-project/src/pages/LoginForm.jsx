@@ -1,15 +1,15 @@
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import { setUser } from "../store/actions/userActions";
-import { FETCH_STATES } from "../store/reducers/userReducer.jsx";
-import { useEffect } from "react";
+import { FETCH_STATES } from "../store/reducers/userReducer";
 import { toast } from "react-toastify";
 import useLocalStorage from "../hooks/useLocalStorage";
 
 function LoginForm({ data }) {
-    const { header, email, password, button, submission } = data.login;
-    const { subtitle, title, description } = header;
+    const { header = {}, email = {}, password = {}, button = "Submit", submission = {} } = data?.login || {};
+    const { subtitle = "", title = "Login", description = "" } = header;
 
     const [token, setToken] = useLocalStorage("token", "");
     const user = useSelector((store) => store.user);
@@ -37,7 +37,7 @@ function LoginForm({ data }) {
             setToken(user.user.token);
             history.push("/");
         } else if (user.fetchState === FETCH_STATES.FETCH_FAILED) {
-            toast.error(`${submission.fail}`, {
+            toast.error(submission.fail || "Login failed", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -48,91 +48,62 @@ function LoginForm({ data }) {
                 theme: "colored",
             });
         }
-    }, [user]);
+    }, [user, history, setToken, submission.fail]);
 
     return (
-        <div className="LogIn h-full">
-
-            <div className="bg-info py-10 px-[20%] sm:p-10">
-                <div className="p-12 font-bold flex flex-col gap-4 items-center text-center sm:text-center">
-                    <h2 className="text-base text-accent sm:text-sm">{subtitle}</h2>
-                    <h1 className="text-6xl leading-[5rem] sm:text-4xl">{title}</h1>
-                    <p className="font-normal text-xl text-accent sm:text-base">
-                        {description}
-                    </p>
-                </div>
-                <form
-                    className="flex flex-col gap-10"
-                    onSubmit={handleSubmit(onSubmit)}
-                >
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="email">
-                            {email.label}
-                        </label>
-                        <input
-                            id="email"
-                            className="form-input"
-                            placeholder={email.placeholder}
-                            type="email"
-                            {...register("email", {
-                                required: `${email.errorMsg.required}`,
-                                validate: {
-                                    matchPattern: (v) =>
-                                        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-                                        "Email address must be a valid address",
-                                },
-                            })}
-                        />
-                        {errors.email ? (
-                            <p className="form-footnote text-red-600">
-                                {errors.email.message}
-                            </p>
-                        ) : (
-                            <p className="form-footnote">{email.footnote}</p>
-                        )}
-                    </div>
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="password">
-                            {password.label}
-                        </label>
-                        <input
-                            id="password"
-                            className="form-input"
-                            placeholder={password.placeholder}
-                            type="password"
-                            {...register("password", {
-                                required: `${password.errorMsg.required}`,
-                            })}
-                        />
-                        {errors.password ? (
-                            <p className="form-footnote text-red-600">
-                                {errors.password.message}
-                            </p>
-                        ) : (
-                            <p className="form-footnote">{password.footnote}</p>
-                        )}
-                    </div>
-                    <button
-                        type="submit"
-                        disabled={!isValid || user.fetchState === FETCH_STATES.FETCHING}
-                        className={
-                            !(user.fetchState === FETCH_STATES.FETCHING) && isValid
-                                ? "blue-button mx-auto flex gap-4 items-center"
-                                : "blue-button mx-auto flex gap-4 items-center bg-secondary-focus"
-                        }
-                    >
-                        <span
-                            className={
-                                user.fetchState === FETCH_STATES.FETCHING ? "" : "hidden"
-                            }
-                        >
-
-                        </span>
-                        <span>{button}</span>
-                    </button>
-                </form>
+        <div className="max-w-md mx-auto p-6">
+            <div className="text-center mb-6">
+                <h2 className="text-base text-gray-500">{subtitle}</h2>
+                <h1 className="text-2xl font-bold mb-2">{title}</h1>
+                <p className="text-lg text-gray-700">{description}</p>
             </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                {/* Email Field */}
+                <div>
+                    <label className="block text-sm font-medium mb-1">{email.label || "Email"}</label>
+                    <input
+                        id="email"
+                        className="w-full p-2 border rounded"
+                        placeholder={email.placeholder || "Enter your email"}
+                        type="email"
+                        {...register("email", {
+                            required: email.errorMsg?.required || "Email is required",
+                            validate: {
+                                matchPattern: (v) =>
+                                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+                                    "Email address must be a valid address",
+                            },
+                        })}
+                    />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+                </div>
+
+                {/* Password Field */}
+                <div>
+                    <label className="block text-sm font-medium mb-1">{password.label || "Password"}</label>
+                    <input
+                        id="password"
+                        className="w-full p-2 border rounded"
+                        placeholder={password.placeholder || "Enter your password"}
+                        type="password"
+                        {...register("password", {
+                            required: password.errorMsg?.required || "Password is required",
+                        })}
+                    />
+                    {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+                </div>
+
+                {/* Submit Button */}
+                <button
+                    type="submit"
+                    disabled={!isValid}
+                    className="w-full p-2 bg-[#23A6F0] text-white rounded hover:bg-blue-600 disabled:opacity-50"
+                >
+                    {button}
+                </button>
+            </form>
         </div>
     );
 }
+
 export default LoginForm;

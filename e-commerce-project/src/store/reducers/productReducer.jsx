@@ -4,7 +4,7 @@ import {
     SET_PAGE_COUNT,
     SET_PRODUCT_LIST,
     SET_TOTAL_PRODUCT_COUNT,
-} from "../actions/productActions.jsx";
+} from "../actions/";
 
 const initialState = {
     productList: [],

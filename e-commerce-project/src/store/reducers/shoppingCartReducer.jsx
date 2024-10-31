@@ -1,16 +1,18 @@
+// shoppingCartReducer.jsx
+
 import {
     ADD_TO_CART,
-    CLEAR_CART,
     REMOVE_FROM_CART,
-    SET_ADDRESS_INFO,
-    SET_PAYMENT_INFO,
     UPDATE_CART_ITEM_QUANTITY,
-} from "../actions/shoppingCartActions";
+    CLEAR_CART,
+    SET_PAYMENT_INFO,
+    SET_ADDRESS_INFO
+} from '../actions/shoppingCartActions';
 
 const initialState = {
-    cart: [],
-    payment: {},
-    address: {},
+    items: [],
+    paymentInfo: null,
+    addressInfo: null
 };
 
 const shoppingCartReducer = (state = initialState, action) => {
@@ -18,36 +20,36 @@ const shoppingCartReducer = (state = initialState, action) => {
         case ADD_TO_CART:
             return {
                 ...state,
-                cart: [...state.cart, action.payload],
+                items: [...state.items, action.payload]
             };
         case REMOVE_FROM_CART:
             return {
                 ...state,
-                cart: state.cart.filter((item) => item.product.id !== action.payload),
+                items: state.items.filter(item => item.id !== action.payload)
             };
         case UPDATE_CART_ITEM_QUANTITY:
             return {
                 ...state,
-                cart: state.cart.map((item) =>
-                    item.product.id === action.payload.productId
-                        ? { ...item, count: action.payload.newQuantity }
+                items: state.items.map(item =>
+                    item.id === action.payload.productId
+                        ? { ...item, quantity: action.payload.newQuantity }
                         : item
-                ),
+                )
             };
         case CLEAR_CART:
             return {
                 ...state,
-                cart: [],
+                items: []
             };
         case SET_PAYMENT_INFO:
             return {
                 ...state,
-                payment: action.payload,
+                paymentInfo: action.payload
             };
         case SET_ADDRESS_INFO:
             return {
                 ...state,
-                address: action.payload,
+                addressInfo: action.payload
             };
         default:
             return state;
