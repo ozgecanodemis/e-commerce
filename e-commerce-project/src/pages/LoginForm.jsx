@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { setUser } from "../store/actions/userActions";
+import { useHistory, useLocation } from "react-router-dom";
+import { loginUser } from "../store/actions/authActions";
 import { FETCH_STATES } from "../store/reducers/userReducer";
 import { toast } from "react-toastify";
 import useLocalStorage from "../hooks/useLocalStorage";
+import md5 from 'md5';
 
-function LoginForm({ data }) {
-    const { header = {}, email = {}, password = {}, button = "Submit", submission = {} } = data?.login || {};
-    const { subtitle = "", title = "Login", description = "" } = header;
-
+function LoginForm() {
+    const [rememberMe, setRememberMe] = useState(false);
     const [token, setToken] = useLocalStorage("token", "");
     const user = useSelector((store) => store.user);
     const history = useHistory();
+    const location = useLocation();
     const dispatch = useDispatch();
 
     const {
@@ -29,15 +29,18 @@ function LoginForm({ data }) {
     });
 
     const onSubmit = (formData) => {
-        dispatch(setUser(formData));
+        dispatch(loginUser(formData, rememberMe));
     };
 
     useEffect(() => {
         if (user.fetchState === FETCH_STATES.FETCHED) {
-            setToken(user.user.token);
-            history.push("/");
+            if (rememberMe) {
+                setToken(user.user.token);
+            }
+            const { from } = location.state || { from: { pathname: "/" } };
+            history.replace(from);
         } else if (user.fetchState === FETCH_STATES.FETCH_FAILED) {
-            toast.error(submission.fail || "Login failed", {
+            toast.error("Login failed. Please check your credentials and try again.", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -48,58 +51,61 @@ function LoginForm({ data }) {
                 theme: "colored",
             });
         }
-    }, [user, history, setToken, submission.fail]);
+    }, [user, history, setToken, location, rememberMe]);
 
     return (
         <div className="max-w-md mx-auto p-6">
-            <div className="text-center mb-6">
-                <h2 className="text-base text-gray-500">{subtitle}</h2>
-                <h1 className="text-2xl font-bold mb-2">{title}</h1>
-                <p className="text-lg text-gray-700">{description}</p>
-            </div>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                {/* Email Field */}
                 <div>
-                    <label className="block text-sm font-medium mb-1">{email.label || "Email"}</label>
+                    <label className="block text-sm font-medium mb-1">Email</label>
                     <input
                         id="email"
                         className="w-full p-2 border rounded"
-                        placeholder={email.placeholder || "Enter your email"}
+                        placeholder="Enter your email"
                         type="email"
                         {...register("email", {
-                            required: email.errorMsg?.required || "Email is required",
-                            validate: {
-                                matchPattern: (v) =>
-                                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-                                    "Email address must be a valid address",
-                            },
+                            required: "Email is required",
+                            pattern: {
+                                value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                                message: "Enter a valid email address"
+                            }
                         })}
                     />
                     {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                 </div>
 
-                {/* Password Field */}
                 <div>
-                    <label className="block text-sm font-medium mb-1">{password.label || "Password"}</label>
+                    <label className="block text-sm font-medium mb-1">Password</label>
                     <input
                         id="password"
                         className="w-full p-2 border rounded"
-                        placeholder={password.placeholder || "Enter your password"}
+                        placeholder="Enter your password"
                         type="password"
                         {...register("password", {
-                            required: password.errorMsg?.required || "Password is required",
+                            required: "Password is required",
                         })}
                     />
                     {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
                 </div>
 
-                {/* Submit Button */}
+                <div>
+                    <label className="flex items-center">
+                        <input
+                            type="checkbox"
+                            checked={rememberMe}
+                            onChange={(e) => setRememberMe(e.target.checked)}
+                            className="mr-2"
+                        />
+                        Remember me
+                    </label>
+                </div>
+
                 <button
                     type="submit"
-                    disabled={!isValid}
+                    disabled={!isValid || user.fetchState === FETCH_STATES.FETCHING}
                     className="w-full p-2 bg-[#23A6F0] text-white rounded hover:bg-blue-600 disabled:opacity-50"
                 >
-                    {button}
+                    {user.fetchState === FETCH_STATES.FETCHING ? "Logging in..." : "Login"}
                 </button>
             </form>
         </div>

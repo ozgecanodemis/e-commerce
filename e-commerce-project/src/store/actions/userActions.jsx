@@ -5,7 +5,7 @@ export const SET_USER_REQUEST = "SET_USER_REQUEST";
 export const SET_USER_SUCCESS = "SET_USER_SUCCESS";
 export const SET_USER_FAILURE = "SET_USER_FAILURE";
 
-const setUserRequest = () => ({
+export const setUserRequest = () => ({
     type: SET_USER_REQUEST,
 });
 
@@ -14,7 +14,7 @@ export const setUserSuccess = (user) => ({
     payload: user,
 });
 
-const setUserFailure = (error) => ({
+export const setUserFailure = (error) => ({
     type: SET_USER_FAILURE,
     payload: error,
 });

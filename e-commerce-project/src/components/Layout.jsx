@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSearch, faShoppingCart, faHeart, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { logoutUser } from '../store/actions/authActions';
 import md5 from 'md5';
-
 
 const Layout = ({ children }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -141,51 +141,7 @@ const Layout = ({ children }) => {
                         </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-                        <div>
-                            <h4 className="font-bold mb-4">Company Info</h4>
-                            <ul className="space-y-2">
-                                <li><Link to="/about">About Us</Link></li>
-                                <li><Link to="/carrier">Carrier</Link></li>
-                                <li><Link to="/hiring">We are hiring</Link></li>
-                                <li><Link to="/blog">Blog</Link></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="font-bold mb-4">Legal</h4>
-                            <ul className="space-y-2">
-                                <li><Link to="/about">About Us</Link></li>
-                                <li><Link to="/carrier">Carrier</Link></li>
-                                <li><Link to="/hiring">We are hiring</Link></li>
-                                <li><Link to="/blog">Blog</Link></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="font-bold mb-4">Features</h4>
-                            <ul className="space-y-2">
-                                <li><Link to="/business">Business Marketing</Link></li>
-                                <li><Link to="/analytics">User Analytics</Link></li>
-                                <li><Link to="/chat">Live Chat</Link></li>
-                                <li><Link to="/support">Unlimited Support</Link></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="font-bold mb-4">Resources</h4>
-                            <ul className="space-y-2">
-                                <li><Link to="/ios">IOS & Android</Link></li>
-                                <li><Link to="/demo">Watch a Demo</Link></li>
-                                <li><Link to="/customers">Customers</Link></li>
-                                <li><Link to="/api">API</Link></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 className="font-bold mb-4">Get in Touch</h4>
-                            <ul className="space-y-2">
-                                <li><Link to="/contact">Contact Us</Link></li>
-                                <li><Link to="/support">Support</Link></li>
-                                <li><Link to="/faq">FAQ</Link></li>
-                                <li><Link to="/terms">Terms of Service</Link></li>
-                            </ul>
-                        </div>
+                        {/* Footer Links Here */}
                     </div>
                 </div>
             </footer>
