@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Slider2 from '../assets/Slider2.png';
+import Slider2 from '../assets/slider2.png';
 
 const items = [
     {
