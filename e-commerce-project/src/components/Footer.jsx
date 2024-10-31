@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { Facebook, Instagram, Twitter } from 'react-feather'; // Feather Icons'dan sosyal medya ikonları
 
