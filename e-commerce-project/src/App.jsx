@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Provider } from 'react-redux'; // Provider'ı içe aktarıyoruz
+import { Provider } from 'react-redux';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import ProductPage from './components/ProductPage';
-import './index.css';
 import ShopPage from './pages/ShopPage';
 import TeamPage from './pages/TeamPage';
 import AboutUs from './pages/AboutUs';
@@ -12,11 +11,17 @@ import Contact from './pages/Contact';
 import SignUpForm from './pages/SignUpForm';
 import BlogPage from './pages/BlogPage';
 import LoginForm from './pages/LoginForm';
-import store from './store/reducers/store';
+import store from './store/store';
 import { ToastContainer } from 'react-toastify';
+import { verifyToken } from '../src/store/actions/authActions'; // Doğru yol ve uzantı
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
+  useEffect(() => {
+    // Token doğrulama işlemi
+    store.dispatch(verifyToken());
+  }, []);
+
   return (
     <Provider store={store}>
       <Router>
@@ -36,7 +41,6 @@ const App = () => {
         </Layout>
       </Router>
     </Provider>
-
   );
 };
 
