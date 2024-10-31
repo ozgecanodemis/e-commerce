@@ -7,11 +7,11 @@ import {
 } from "../actions/";
 
 const initialState = {
-    productList: [],
-    totalProductCount: 0,
-    pageCount: 0,
-    activePage: 1,
-    fetchState: "NOT_FETCHED",
+    productList: [],            // Ürün listesi
+    totalProductCount: 0,      // Toplam ürün sayısı
+    pageCount: 0,              // Sayfa sayısı
+    activePage: 1,             // Aktif sayfa
+    fetchState: "NOT_FETCHED", // Fetch durumu
 };
 
 const productReducer = (state = initialState, action) => {

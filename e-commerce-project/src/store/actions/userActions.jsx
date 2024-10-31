@@ -1,4 +1,5 @@
-import axiosInstance from "../../api/axiosInstanca";
+// src/store/actions/userActions.jsx
+import axiosInstance from "../../api/axiosInstanca"; // Axios instance'ınızı buraya ekleyin
 import axios from 'axios';
 
 export const SET_USER_REQUEST = "SET_USER_REQUEST";
@@ -19,6 +20,7 @@ export const setUserFailure = (error) => ({
     payload: error,
 });
 
+// User'ı ayarlamak için thunk
 export const setUser = (userData) => {
     return (dispatch) => {
         dispatch(setUserRequest());
@@ -34,16 +36,10 @@ export const setUser = (userData) => {
     };
 };
 
+// Ekstra bir login fonksiyonu
 export const loginUser = async (username, password) => {
     try {
-        const response = await axios.post('https://workintech-fe-ecommerce.onrender.com/login',
-            { username, password },
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
+        const response = await axios.post('https://workintech-fe-ecommerce.onrender.com/login', { username, password }, { headers: { 'Content-Type': 'application/json' } });
         return response.data;
     } catch (error) {
         console.error('Login failed:', error.response ? error.response.data : error.message);

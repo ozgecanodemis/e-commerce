@@ -1,45 +1,37 @@
-import {
-    SET_USER_FAILURE,
-    SET_USER_REQUEST,
-    SET_USER_SUCCESS,
-} from "../actions/userActions";
-
-export const FETCH_STATES = {
-    NOT_FETCHED: "not fetched",
-    FETCHING: "fetching",
-    FETCHED: "fetched",
-    FETCH_FAILED: "failed",
-};
-
+// src/reducers/clientReducer.jsx
 const initialState = {
-    user: {},
-    fetchState: FETCH_STATES.NOT_FETCHED,
-    error: null,
+    user: {}, // Kullanıcı bilgilerini içeren nesne
+    addressList: [], // Kullanıcının adres listesini içeren dizi
+    creditCards: [], // Kullanıcının kredi kartları listesini içeren dizi
+    roles: [], // Kullanıcının rollerini içeren dizi
+    theme: "", // Kullanıcının temasını içeren string
+    language: "", // Kullanıcının dilini içeren string
 };
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_USER_REQUEST:
+        case "SET_USER":
             return {
                 ...state,
-                fetchState: FETCH_STATES.FETCHING,
-                error: null,
+                user: action.payload, // Kullanıcı bilgilerini güncelle
             };
-        case SET_USER_SUCCESS:
+        case "SET_ROLES":
             return {
                 ...state,
-                fetchState: FETCH_STATES.FETCHED,
-                user: action.payload,
-                error: null,
+                roles: action.payload, // Roller listesini güncelle
             };
-        case SET_USER_FAILURE:
+        case "SET_THEME":
             return {
                 ...state,
-                fetchState: FETCH_STATES.FETCH_FAILED,
-                error: action.payload,
+                theme: action.payload, // Temayı güncelle
+            };
+        case "SET_LANGUAGE":
+            return {
+                ...state,
+                language: action.payload, // Dili güncelle
             };
         default:
-            return state;
+            return state; // Hiçbir aksiyon tanınmazsa mevcut durumu koru
     }
 };
 
