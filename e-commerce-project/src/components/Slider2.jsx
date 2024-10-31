@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Slider2 from '../assets/Slider2.png';
+
 
 const items = [
     {
@@ -84,10 +84,6 @@ function Slider({ startIndex = 0 }) {
                 &#8250;
             </button>
 
-            {/* Slider2.png positioned below the slider */}
-            <div className="absolute bottom-0 w-full flex justify-left">
-                <img src={Slider2} alt="Slider 2" className="h-[510px]" />
-            </div>
         </div>
     );
 }
