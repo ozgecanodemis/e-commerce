@@ -1,48 +1,18 @@
-// src/store/actions/userActions.jsx
-import axiosInstance from "../../api/axiosInstanca"; // Axios instance'ınızı buraya ekleyin
-import axios from 'axios';
+import { SET_LANGUAGE, SET_ROLES, SET_THEME, SET_USER } from "../reducers/userReducer";
 
-export const SET_USER_REQUEST = "SET_USER_REQUEST";
-export const SET_USER_SUCCESS = "SET_USER_SUCCESS";
-export const SET_USER_FAILURE = "SET_USER_FAILURE";
-
-export const setUserRequest = () => ({
-    type: SET_USER_REQUEST,
+export const setUser = (user) => ({
+    type: SET_USER,
+    payload: user
 });
-
-export const setUserSuccess = (user) => ({
-    type: SET_USER_SUCCESS,
-    payload: user,
+export const setRoles = (roles) => ({
+    type: SET_ROLES,
+    payload: roles
 });
-
-export const setUserFailure = (error) => ({
-    type: SET_USER_FAILURE,
-    payload: error,
+export const setTheme = (theme) => ({
+    type: SET_THEME,
+    payload: theme
 });
-
-// User'ı ayarlamak için thunk
-export const setUser = (userData) => {
-    return (dispatch) => {
-        dispatch(setUserRequest());
-
-        axiosInstance
-            .post("/login", userData)
-            .then((response) => {
-                dispatch(setUserSuccess(response.data));
-            })
-            .catch((error) => {
-                dispatch(setUserFailure(error.message));
-            });
-    };
-};
-
-// Ekstra bir login fonksiyonu
-export const loginUser = async (username, password) => {
-    try {
-        const response = await axios.post('https://workintech-fe-ecommerce.onrender.com/login', { username, password }, { headers: { 'Content-Type': 'application/json' } });
-        return response.data;
-    } catch (error) {
-        console.error('Login failed:', error.response ? error.response.data : error.message);
-        throw error;
-    }
-};
+export const setLanguage = (language) => ({
+    type: SET_LANGUAGE,
+    payload: language
+});
