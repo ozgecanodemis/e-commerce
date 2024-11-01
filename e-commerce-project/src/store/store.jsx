@@ -1,10 +1,17 @@
-// src/store/store.js
-import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducers/indexReducer';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { thunk } from 'redux-thunk';
+import logger from 'redux-logger';
+import userReducer from './reducers/userReducer';
+import shoppingCartReducer from './reducers/shoppingCartReducer';
+import productReducer from './reducers/productReducer';
 
-const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+const rootReducer = combineReducers({
+    client: userReducer,
+    product: productReducer,
+    shopping: shoppingCartReducer,
 });
-
-export default store;
+const myStore = createStore(
+    rootReducer,
+    applyMiddleware(thunk, logger)
+);
+export default myStore;

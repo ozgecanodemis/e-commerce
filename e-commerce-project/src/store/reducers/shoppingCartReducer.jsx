@@ -20,40 +20,41 @@ const shoppingCartReducer = (state = initialState, action) => {
         case ADD_TO_CART:
             return {
                 ...state,
-                items: [...state.items, action.payload]
+                items: [...state.items, action.payload] // Eklenecek ürün { count, product } formatında olmalı
             };
         case REMOVE_FROM_CART:
             return {
                 ...state,
-                items: state.items.filter(item => item.id !== action.payload)
+                items: state.items.filter(item => item.product.id !== action.payload) // Burada item.product.id kullanıldı
             };
         case UPDATE_CART_ITEM_QUANTITY:
             return {
                 ...state,
                 items: state.items.map(item =>
-                    item.id === action.payload.productId
-                        ? { ...item, quantity: action.payload.newQuantity }
+                    item.product.id === action.payload.productId
+                        ? { ...item, count: action.payload.newQuantity } // Burada count alanı güncelleniyor
                         : item
                 )
             };
         case CLEAR_CART:
             return {
                 ...state,
-                items: []
+                items: [] // Sepeti temizler
             };
         case SET_PAYMENT_INFO:
             return {
                 ...state,
-                paymentInfo: action.payload
+                paymentInfo: action.payload // Ödeme bilgilerini günceller
             };
         case SET_ADDRESS_INFO:
             return {
                 ...state,
-                addressInfo: action.payload
+                addressInfo: action.payload // Adres bilgilerini günceller
             };
         default:
-            return state;
+            return state; // Mevcut durumu koru
     }
 };
+
 
 export default shoppingCartReducer;

@@ -1,33 +1,37 @@
-import axiosAuth from '../../api/axiosAuth';
-import { setUserRequest, setUserSuccess, setUserFailure } from '../actions/userActions';
+// src/store/actions/authActions.jsx
+import md5 from 'md5';
+import axiosInstance from '../../api/axiosInstanca';
+import { setUser } from './userActions';
+import { toast } from 'react-toastify';
+
 
 export const loginUser = (credentials, rememberMe) => async (dispatch) => {
-    dispatch(setUserRequest());
+
+
     try {
-        const response = await axiosAuth().post('/login', credentials);
-        dispatch(setUserSuccess(response.data));
+        const response = await axiosInstance.post('/login', credentials);
+
+        const userInfo = {
+            name: response.data.name,
+            email: response.data.email || credentials.email,
+            role_id: response.data.role_id,
+            avatar: response.data.email
+                ? `https://www.gravatar.com/avatar/${md5(response.data.email)}?d=mp`
+                : `https://www.gravatar.com/avatar/${md5(credentials.email)}?d=mp`,
+            token: response.data.token
+        };
+
+        dispatch(setUser(userInfo));
         if (rememberMe) {
             localStorage.setItem('token', response.data.token);
         }
+        toast.success("Giriş Başarılı")
     } catch (error) {
-        dispatch(setUserFailure(error.response?.data?.message || 'Login failed'));
+        console.error(error);
+        toast.error("Giriş yapılamadı.")
     }
 };
 
-export const logoutUser = () => (dispatch) => {
-    localStorage.removeItem('token');
-    dispatch(setUserSuccess(null));
-};
 
-export const verifyToken = () => async (dispatch) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-        try {
-            const response = await axiosAuth().get('/verify-token');
-            dispatch(setUserSuccess(response.data));
-        } catch (error) {
-            dispatch(setUserFailure('Token verification failed'));
-            localStorage.removeItem('token');
-        }
-    }
-};
+
+

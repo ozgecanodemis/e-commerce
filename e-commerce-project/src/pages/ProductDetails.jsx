@@ -91,7 +91,7 @@ const ProductDetails = () => {
                 <h2 className="text-[20px] font-bold text-center mb-4">Bestseller Products</h2>
                 <div className="flex flex-wrap justify-center gap-4"> {/* flex-wrap ve justify-center ekledik */}
                     {otherProducts.map((product) => (
-                        <Link key={product.id} to={`/ product / ${product.id}`}>
+                        <Link key={product.id} to={`/product/${product.id}`}>
                             <div className="border p-4 text-center w-[328px] h-auto">
                                 <img src={product.image} alt={product.title} className="h-[150px] w-full object-contain mb-2" />
                                 <p className="text-sm font-medium">{product.title}</p>

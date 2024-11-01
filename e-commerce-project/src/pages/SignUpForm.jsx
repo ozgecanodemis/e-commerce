@@ -13,7 +13,7 @@ const SignUpForm = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [roles, setRoles] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [selectedRole, setSelectedRole] = useState('1'); // Default to Customer role
+    const [selectedRole, setSelectedRole] = useState('3'); // Varsayılan rol "Müşteri"
     const history = useHistory();
 
     // Fetch roles on component mount
@@ -139,7 +139,7 @@ const SignUpForm = () => {
                         {...register('role_id')}
                         onChange={(e) => setSelectedRole(e.target.value)}
                         className="w-full p-2 border rounded"
-                        defaultValue="1"
+                        defaultValue="3" // Varsayılan değer "Müşteri"
                     >
                         {roles.map((role) => (
                             <option key={role.id} value={role.id}>
@@ -224,11 +224,7 @@ const SignUpForm = () => {
                     disabled={isLoading}
                     className="w-full p-2 bg-[#23A6F0] text-white rounded hover:bg-blue-600 disabled:opacity-50 flex items-center justify-center"
                 >
-                    {isLoading ? (
-                        <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    ) : (
-                        'Sign Up'
-                    )}
+                    {isLoading ? 'Loading...' : 'Sign Up'}
                 </button>
             </form>
         </div>
