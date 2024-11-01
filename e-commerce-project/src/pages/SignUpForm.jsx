@@ -10,10 +10,10 @@ const axiosInstance = axios.create({
 });
 
 const SignUpForm = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm();
     const [roles, setRoles] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [selectedRole, setSelectedRole] = useState('3'); // Varsayılan rol "Müşteri"
+    const [selectedRole, setSelectedRole] = useState('3'); // Default role is "Customer"
     const history = useHistory();
 
     // Fetch roles on component mount
@@ -22,12 +22,15 @@ const SignUpForm = () => {
             try {
                 const response = await axiosInstance.get('/roles');
                 setRoles(response.data);
+                // Ensure the default role is set to Customer (id: 3) after fetching roles
+                setValue('role_id', '3');
+                setSelectedRole('3');
             } catch (error) {
                 toast.error('Failed to fetch roles');
             }
         };
         fetchRoles();
-    }, []);
+    }, [setValue]);
 
     const onSubmit = async (data) => {
         setIsLoading(true);
@@ -139,7 +142,7 @@ const SignUpForm = () => {
                         {...register('role_id')}
                         onChange={(e) => setSelectedRole(e.target.value)}
                         className="w-full p-2 border rounded"
-                        defaultValue="3" // Varsayılan değer "Müşteri"
+                        value={selectedRole}
                     >
                         {roles.map((role) => (
                             <option key={role.id} value={role.id}>
