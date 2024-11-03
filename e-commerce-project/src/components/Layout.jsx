@@ -30,6 +30,11 @@ const Layout = ({ children }) => {
                         <Link to="/contact" className="hover:text-gray-300">Contact</Link>
                         <Link to="/pages" className="hover:text-gray-300">Pages</Link>
                         <Link to="/team" className="hover:text-gray-300">Team</Link>
+                        <span>
+                            <FontAwesomeIcon icon={faUser} className="mr-2" />
+                            <Link to="/login" className="hover:text-gray-300">Login </Link>/
+                            <Link to="/signup" className="hover:text-gray-300"> Register</Link>
+                        </span>
                     </nav>
                     <div className="hidden md:flex items-center space-x-4">
                         {user.name && user.avatar &&

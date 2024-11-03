@@ -29,7 +29,13 @@ function LoginForm() {
         e.preventDefault();
         dispatch(loginUser(formData, rememberMe));
     };
-
+    const handleClick = () => {
+        if (window.history.length > 2) { // Önceki sayfa varsa
+            window.history.back();
+        } else { // Önceki sayfa yoksa
+            window.location.href = "/";
+        }
+    };
 
 
     return (
@@ -81,9 +87,9 @@ function LoginForm() {
 
                 <button
                     type="submit"
-
-                    className="w-full p-2 bg-[#23A6F0] text-white rounded hover:bg-blue-600 disabled:opacity-50"
-                >
+                    onClick={handleClick}
+                    className="w-full p-2 bg-[#23A6F0] text-white rounded hover:bg-blue-600 disabled:opacity-50 flex items-center justify-center"
+                > Login
 
                 </button>
             </form>

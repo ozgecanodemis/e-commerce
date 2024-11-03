@@ -27,7 +27,7 @@ const TeamPage = () => {
                     <div className="bg-white overflow-hidden shadow-lg max-w-[241px] h-[423px]">
                         <div className="h-[280px] overflow-hidden">
                             <img
-                                src="https://media.licdn.com/dms/image/v2/D4D35AQH7S4tWlpr5gQ/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1725350801989?e=1730584800&v=beta&t=n4PUdtFBckgQVL25K3FHIx9SlxArNDkx753alFdlbKg"
+                                src="https://www.indyturk.com/sites/default/files/styles/1368x911/public/article/main_image/2019/05/20/94711-2070536096.jpg?itok=K3qE7nZS"
                                 className="w-full h-full object-cover"
                             />
                         </div>
