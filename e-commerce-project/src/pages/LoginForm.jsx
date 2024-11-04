@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { loginUser } from "../store/actions/authActions";
-import { toast } from "react-toastify";
-
 
 function LoginForm() {
     const [rememberMe, setRememberMe] = useState(false);
-    const token = localStorage.getItem("token");
     const history = useHistory();
-    const location = useLocation();
     const dispatch = useDispatch();
 
     const {
         register,
         handleSubmit,
-        formState: { errors, isValid },
+        formState: { errors },
     } = useForm({
         defaultValues: {
             email: "",
@@ -25,18 +21,9 @@ function LoginForm() {
         mode: "all",
     });
 
-    const onSubmit = (formData, e) => {
-        e.preventDefault();
-        dispatch(loginUser(formData, rememberMe));
+    const onSubmit = (formData) => {
+        dispatch(loginUser(formData, rememberMe, history));
     };
-    const handleClick = () => {
-        if (window.history.length > 2) { // Önceki sayfa varsa
-            window.history.back();
-        } else { // Önceki sayfa yoksa
-            window.location.href = "/";
-        }
-    };
-
 
     return (
         <div className="max-w-md mx-auto p-6">
@@ -87,10 +74,9 @@ function LoginForm() {
 
                 <button
                     type="submit"
-                    onClick={handleClick}
                     className="w-full p-2 bg-[#23A6F0] text-white rounded hover:bg-blue-600 disabled:opacity-50 flex items-center justify-center"
-                > Login
-
+                >
+                    Login
                 </button>
             </form>
         </div>

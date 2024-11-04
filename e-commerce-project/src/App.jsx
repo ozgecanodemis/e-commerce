@@ -1,6 +1,6 @@
-
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import ProductPage from './components/ProductPage';
@@ -13,13 +13,21 @@ import BlogPage from './pages/BlogPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './pages/LoginPage';
-
+import { verifyToken } from './store/actions/authActions';
+import axiosAuth from './api/axiosAuth';
 
 const App = () => {
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      axiosAuth.defaults.headers.common['Authorization'] = token;
+      dispatch(verifyToken());
+    }
+  }, [dispatch]);
 
   return (
-
     <Router>
       <ToastContainer position="top-right"
         autoClose={3000}
