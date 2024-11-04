@@ -1,14 +1,12 @@
 import axios from "axios";
 
-const axiosAuth = () => {
-    const token = localStorage.getItem("token");
+const axiosAuth = axios.create({
+    baseURL: "https://workintech-fe-ecommerce.onrender.com/",
+});
 
-    return axios.create({
-        baseURL: "https://workintech-fe-ecommerce.onrender.com/",
-        headers: {
-            Authorization: token ? `Bearer ${token}` : undefined,
-        },
-    });
-};
+const token = localStorage.getItem("token");
+if (token) {
+    axiosAuth.defaults.headers.common['Authorization'] = token;
+}
 
 export default axiosAuth;
