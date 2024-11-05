@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ProductPage from '../components/ProductPage';
 import dw1 from '../assets/dw-1.png';
 import dw2 from '../assets/dw-2.png';
@@ -25,8 +25,13 @@ const ShopPage = () => {
     };
     const handleFirstPage = () => setCurrentPage(1);
 
+    const { gender, category } = useParams();
+
     return (
+
+
         <div className="flex flex-col min-h-screen bg-white">
+
             <div className="flex flex-col md:flex-row md:flex-wrap md:justify-center limited-width">
                 {[...Array(5)].map((_, index) => (
                     <div key={index} className="w-full md:w-1/3 lg:w-1/4 xl:w-1/5 md:px-1 mb-4">

@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './pages/LoginPage';
 import { verifyToken } from './store/actions/authActions';
 import axiosAuth from './api/axiosAuth';
+import CategoryList from './components/CategoryList';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,8 @@ const App = () => {
 
   return (
     <Router>
-      <ToastContainer position="top-right"
+      <ToastContainer
+        position="top-right"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -37,12 +39,14 @@ const App = () => {
         rtl={false}
         pauseOnFocusLoss
         draggable
-        pauseOnHover />
+        pauseOnHover
+      />
       <Layout>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/product" component={ProductPage} />
-          <Route path="/shop" component={ShopPage} />
+          <Route exact path="/shop" component={ShopPage} />
+          <Route path="/shop/:gender/:category" component={ShopPage} />
           <Route path="/about" component={AboutUs} />
           <Route path="/team" component={TeamPage} />
           <Route path="/contact" component={Contact} />
@@ -51,6 +55,7 @@ const App = () => {
           <Route path="/login" component={LoginPage} />
         </Switch>
       </Layout>
+      <CategoryList />
     </Router>
   );
 };
