@@ -43,6 +43,7 @@ const App = () => {
       />
       <Layout>
         <Switch>
+
           <Route exact path="/" component={HomePage} />
           <Route path="/product" component={ProductPage} />
           <Route exact path="/shop" component={ShopPage} />
@@ -53,6 +54,7 @@ const App = () => {
           <Route path="/signup" component={SignUpForm} />
           <Route path="/blog" component={BlogPage} />
           <Route path="/login" component={LoginPage} />
+          <Route path="/shop/:category" component={ProductPage} />
         </Switch>
       </Layout>
       <CategoryList />

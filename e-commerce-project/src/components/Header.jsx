@@ -18,9 +18,6 @@ const Header = () => {
         }
     }, [categoriesStatus, dispatch]);
 
-    const womenCategories = categories.filter((cat) => cat.gender === 'k');
-    const menCategories = categories.filter((cat) => cat.gender === 'e');
-
     const renderCategoryDropdown = () => {
         if (categoriesStatus === 'loading') {
             return <div className="p-4">Loading categories...</div>;
@@ -29,29 +26,16 @@ const Header = () => {
         return (
             <div className="absolute left-0 mt-2 w-96 bg-white border border-gray-200 rounded-md shadow-lg z-50">
                 <div className="flex gap-4">
-                    <div className="w-1/2 py-1 px-2">
-                        <p className="px-2 py-2 text-sm font-bold text-gray-700 mb-4">Women</p>
-                        {womenCategories.map((category) => (
+                    <div className="w-full py-1 px-2">
+                        <p className="px-2 py-2 text-sm font-bold text-gray-700 mb-4">Categories</p>
+                        {categories.map((category) => (
                             <Link
-                                key={category.id}
-                                to={`/shop/k/${category.slug}`}
+                                key={category}
+                                to={`/shop/${category}`} // Kategorinin slug'ını kullan
                                 className="block px-2 mb-4 text-sm font-semibold text-[#737373] hover:bg-gray-100"
                                 onClick={() => setIsCategoryDropdownOpen(false)}
                             >
-                                {category.name}
-                            </Link>
-                        ))}
-                    </div>
-                    <div className="w-1/2 py-1 px-2 border-l border-gray-200">
-                        <p className="px-2 py-2 text-sm font-bold text-gray-700 mb-4">Men</p>
-                        {menCategories.map((category) => (
-                            <Link
-                                key={category.id}
-                                to={`/shop/e/${category.slug}`}
-                                className="block px-2 mb-4 text-sm font-semibold text-[#737373] hover:bg-gray-100"
-                                onClick={() => setIsCategoryDropdownOpen(false)}
-                            >
-                                {category.name}
+                                {category}
                             </Link>
                         ))}
                     </div>
@@ -66,15 +50,15 @@ const Header = () => {
                 <Link to="/" className="text-2xl font-bold">Bandage</Link>
                 <nav className={`${isMenuOpen ? 'block' : 'hidden'} md:flex space-x-6`}>
                     <Link to="/" className="hover:text-gray-300">Home</Link>
-                    <Link to="/shop" className="hover:text-gray-300">Shop</Link>
-                    <div className="relative group">
+                    <Link to="/shop" className="hover:text-gray-300">Shop </Link>
+                    <div className="relative group ">
                         <button
                             className="hover:text-gray-300 flex items-center"
                             onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
                             aria-haspopup="true"
                             aria-expanded={isCategoryDropdownOpen}
                         >
-                            Categories <FontAwesomeIcon icon={faChevronDown} className="ml-1" />
+                            <FontAwesomeIcon icon={faChevronDown} className="m-1" />
                         </button>
                         {isCategoryDropdownOpen && renderCategoryDropdown()}
                     </div>

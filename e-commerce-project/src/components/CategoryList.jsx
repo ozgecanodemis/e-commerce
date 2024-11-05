@@ -1,5 +1,3 @@
-// src/components/CategoryList.jsx
-
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategories } from '../store/reducers/categoriesSlice';
@@ -24,10 +22,11 @@ const CategoryList = () => {
             <h2>Top 5 Categories</h2>
             <ul>
                 {categories.slice(0, 5).map((category) => (
-                    <li key={category.id}>
-                        <Link to={`/shop/${category.gender}/${category.slug}`}>
-                            <img src={category.image} alt={category.name} />
-                            {category.name}
+                    <li key={category}> {/* Kategorinin kendisini key olarak kullanıyoruz */}
+                        <Link to={`/shop/${category}`}>
+                            {/* Eğer kategori nesnelerinde image yoksa, bunu kaldırmalısınız */}
+                            {/* <img src={category.image} alt={category.name} /> */}
+                            {category}
                         </Link>
                     </li>
                 ))}
