@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faShoppingCart, faHeart, faUser, faTimes, faBars, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { fetchCategories } from '../store/reducers/categoriesSlice';
+import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,12 +12,19 @@ const Header = () => {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.categories.items);
     const categoriesStatus = useSelector((state) => state.categories.status);
+    const user = useSelector(state => state.client.user);
+    const location = useLocation();
+    const history = useHistory();
 
     useEffect(() => {
         if (categoriesStatus === 'idle') {
             dispatch(fetchCategories());
         }
     }, [categoriesStatus, dispatch]);
+
+    useEffect(() => {
+        setIsMenuOpen(false);
+    }, [location]);
 
     const renderCategoryDropdown = () => {
         if (categoriesStatus === 'loading') {
@@ -44,13 +52,25 @@ const Header = () => {
         );
     };
 
+    /* <div className="relative group ">
+                        <button
+                            className="hover:text-gray-300 flex items-center"
+                            onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
+                            aria-haspopup="true"
+                            aria-expanded={isCategoryDropdownOpen}
+                        >
+                            <FontAwesomeIcon icon={faChevronDown} className="m-1" />
+                        </button>
+                        {isCategoryDropdownOpen && renderCategoryDropdown()}
+                    </div>*/
+
     return (
         <header className="bg-white text-black md:bg-[#23856D] md:text-white">
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                 <Link to="/" className="text-2xl font-bold">Bandage</Link>
-                <nav className={`${isMenuOpen ? 'block' : 'hidden'} md:flex space-x-6`}>
+                <nav className="hidden md:flex space-x-6">
                     <Link to="/" className="hover:text-gray-300">Home</Link>
-                    <Link to="/shop" className="hover:text-gray-300">Shop </Link>
+                    <Link to="/shop" className="hover:text-gray-300">Shop</Link>
                     <div className="relative group ">
                         <button
                             className="hover:text-gray-300 flex items-center"
@@ -66,14 +86,20 @@ const Header = () => {
                     <Link to="/blog" className="hover:text-gray-300">Blog</Link>
                     <Link to="/contact" className="hover:text-gray-300">Contact</Link>
                     <Link to="/pages" className="hover:text-gray-300">Pages</Link>
+                    <Link to="/team" className="hover:text-gray-300">Team</Link>
                 </nav>
-                <div className={`${isMenuOpen ? 'block' : 'hidden'} md:flex items-center space-x-4`}>
-                    <span className="flex items-center hover:text-gray-300">
-                        <FontAwesomeIcon icon={faUser} className="mr-2" />
-                        <Link to="/login" className="hover:text-gray-300">Login</Link>
-                        /
-                        <Link to="/signup" className="hover:text-gray-300">Register</Link>
-                    </span>
+                <div className="hidden md:flex items-center space-x-4">
+                    {user.name && user.avatar &&
+                        <div className='flex items-center gap-2'>
+                            <img
+                                src={user.avatar}
+                                alt={user.name}
+                                className="w-8 h-8 rounded-full object-cover border-2 border-gray-200"
+                            />
+                            <span className="text-white text-sm font-medium">
+                                {user.name}
+                            </span>
+                        </div>}
                     <FontAwesomeIcon icon={faSearch} />
                     <div className="flex items-center">
                         <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
@@ -84,12 +110,8 @@ const Header = () => {
                         <span>1</span>
                     </div>
                 </div>
-                <button
-                    className="md:hidden"
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    aria-label="Toggle menu"
-                >
-                    <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
+                <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                    {isMenuOpen ? <FontAwesomeIcon icon={faTimes} /> : <FontAwesomeIcon icon={faBars} />}
                 </button>
             </div>
         </header>
