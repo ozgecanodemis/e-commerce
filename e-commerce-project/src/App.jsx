@@ -16,6 +16,7 @@ import LoginPage from './pages/LoginPage';
 import { verifyToken } from './store/actions/authActions';
 import axiosAuth from './api/axiosAuth';
 import CategoryList from './components/CategoryList';
+import ProductDetails from './pages/ProductDetails';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="/blog" component={BlogPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/shop/:category" component={ProductPage} />
+          <Route path="/product/:id" component={ProductDetails} />
         </Switch>
       </Layout>
       <CategoryList />

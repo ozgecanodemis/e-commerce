@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Fake Store API adresini tanımlayalım
-const API_BASE_URL = 'https://fakestoreapi.com/products/categories';
+
+const API_BASE_URL = 'https://workintech-fe-ecommerce.onrender.com/categories';
 
 export const fetchCategories = createAsyncThunk(
     'categories/fetchCategories',

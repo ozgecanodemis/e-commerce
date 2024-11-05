@@ -13,7 +13,7 @@ const ProductDetails = () => {
 
     useEffect(() => {
         // Ürünü fake store API'sinden çek
-        axios.get(`https://fakestoreapi.com/products/${id}`)
+        axios.get(`https://workintech-fe-ecommerce.onrender.com/products/${id}`) // Fixed string interpolation
             .then(response => {
                 setProduct(response.data);
                 setLoading(false);
@@ -26,7 +26,7 @@ const ProductDetails = () => {
 
     useEffect(() => {
         // Tüm ürünleri çek ve dört tanesini al
-        axios.get('https://fakestoreapi.com/products')
+        axios.get('https://workintech-fe-ecommerce.onrender.com/products')
             .then(response => {
                 const filteredProducts = response.data.filter(item => item.id !== parseInt(id)).slice(0, 4);
                 setOtherProducts(filteredProducts);

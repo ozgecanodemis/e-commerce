@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faShoppingCart, faHeart, faUser, faTimes, faBars, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { fetchCategories } from '../store/reducers/categoriesSlice';
-import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,36 +33,22 @@ const Header = () => {
 
         return (
             <div className="absolute left-0 mt-2 w-96 bg-white border border-gray-200 rounded-md shadow-lg z-50">
-                <div className="flex gap-4">
-                    <div className="w-full py-1 px-2">
-                        <p className="px-2 py-2 text-sm font-bold text-gray-700 mb-4">Categories</p>
-                        {categories.map((category) => (
+                <div className="flex flex-col gap-2 py-2 px-2">
+                    {categories.map((category) => (
+                        <div key={category.id} className="border-b mb-2">
                             <Link
-                                key={category}
-                                to={`/shop/${category}`} // Kategorinin slug'ını kullan
-                                className="block px-2 mb-4 text-sm font-semibold text-[#737373] hover:bg-gray-100"
+                                to={`/shop/${category.code}`}
+                                className="block px-2 mb-2 text-sm font-semibold text-[#737373] hover:bg-gray-100"
                                 onClick={() => setIsCategoryDropdownOpen(false)}
                             >
-                                {category}
+                                {category.title} {/* Render the title of the category */}
                             </Link>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         );
     };
-
-    /* <div className="relative group ">
-                        <button
-                            className="hover:text-gray-300 flex items-center"
-                            onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
-                            aria-haspopup="true"
-                            aria-expanded={isCategoryDropdownOpen}
-                        >
-                            <FontAwesomeIcon icon={faChevronDown} className="m-1" />
-                        </button>
-                        {isCategoryDropdownOpen && renderCategoryDropdown()}
-                    </div>*/
 
     return (
         <header className="bg-white text-black md:bg-[#23856D] md:text-white">
@@ -77,7 +63,7 @@ const Header = () => {
                             onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
                             aria-haspopup="true"
                             aria-expanded={isCategoryDropdownOpen}
-                        >
+                        > Categories
                             <FontAwesomeIcon icon={faChevronDown} className="m-1" />
                         </button>
                         {isCategoryDropdownOpen && renderCategoryDropdown()}

@@ -22,11 +22,9 @@ const CategoryList = () => {
             <h2>Top 5 Categories</h2>
             <ul>
                 {categories.slice(0, 5).map((category) => (
-                    <li key={category}> {/* Kategorinin kendisini key olarak kullanıyoruz */}
-                        <Link to={`/shop/${category}`}>
-                            {/* Eğer kategori nesnelerinde image yoksa, bunu kaldırmalısınız */}
-                            {/* <img src={category.image} alt={category.name} /> */}
-                            {category}
+                    <li key={category.id}>
+                        <Link to={`/shop/${category.gender}/${category.title}`}>
+                            {category.title}
                         </Link>
                     </li>
                 ))}
