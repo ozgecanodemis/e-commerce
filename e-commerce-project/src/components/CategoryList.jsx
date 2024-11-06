@@ -17,13 +17,19 @@ const CategoryList = () => {
     if (status === 'loading') return <p>Loading...</p>;
     if (status === 'failed') return <p>Error loading categories.</p>;
 
+    // Create a shallow copy of the array before sorting
+    const topCategories = [...categories]
+        .sort((a, b) => b.rating - a.rating) // Get top 5 based on rating
+        .slice(0, 5);
+
     return (
         <div>
             <h2>Top 5 Categories</h2>
             <ul>
-                {categories.slice(0, 5).map((category) => (
-                    <li key={category.id}>
-                        <Link to={`/shop/${category.gender}/${category.title}`}>
+                {topCategories.map((category) => (
+                    <li key={category.id} className="flex items-center mb-4">
+                        <img src={category.img} alt={category.title} className="w-12 h-12 mr-4" />
+                        <Link to={`/shop/${category.gender}/${category.code}`} className="text-lg font-semibold">
                             {category.title}
                         </Link>
                     </li>
