@@ -1,41 +1,41 @@
-import { SET_ACTIVE_PAGE, SET_FETCH_STATE, SET_PAGE_COUNT, SET_PRODUCT_LIST, SET_TOTAL_PRODUCT_COUNT } from "../actions/productActions";
-
+export const SET_CATEGORIES = "SET_CATEGORIES";
+export const SET_PRODUCT_LIST = "SET_PRODUCT_LIST";
+export const SET_TOTAL = "SET_TOTAL";
+export const SET_FETCH_STATE = "SET_FETCH_STATE";
+export const SET_LIMIT = "SET_LIMIT";
+export const SET_OFFSET = "SET_OFFSET";
+export const SET_FILTER = "SET_FILTER";
+export const SET_PRODUCT_DETAIL = "SET_PRODUCT_DETAIL";
 
 const initialState = {
-    productList: [],            // Ürün listesi
-    totalProductCount: 0,      // Toplam ürün sayısı
-    pageCount: 0,              // Sayfa sayısı
-    activePage: 1,             // Aktif sayfa
-    fetchState: "NOT_FETCHED", // Fetch durumu
+    categories: [],
+    productList: [],
+    productDetail: {},
+    total: 0,
+    limit: 25,
+    offset: 0,
+    filter: "",
+    fetchState: "NOT_FETCHED",
 };
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_CATEGORIES:
+            return { ...state, categories: action.payload };
         case SET_PRODUCT_LIST:
-            return {
-                ...state,
-                productList: [...state.productList, action.payload],
-            };
-        case SET_TOTAL_PRODUCT_COUNT:
-            return {
-                ...state,
-                totalProductCount: state.totalProductCount + 1,
-            };
-        case SET_PAGE_COUNT:
-            return {
-                ...state,
-                pageCount: action.payload,
-            };
-        case SET_ACTIVE_PAGE:
-            return {
-                ...state,
-                activePage: action.payload,
-            };
+            return { ...state, productList: action.payload };
+        case SET_TOTAL:
+            return { ...state, total: action.payload };
         case SET_FETCH_STATE:
-            return {
-                ...state,
-                fetchState: action.payload,
-            };
+            return { ...state, fetchState: action.payload };
+        case SET_LIMIT:
+            return { ...state, limit: action.payload };
+        case SET_OFFSET:
+            return { ...state, offset: action.payload };
+        case SET_FILTER:
+            return { ...state, filter: action.payload };
+        case SET_PRODUCT_DETAIL:
+            return { ...state, productDetail: action.payload };
         default:
             return state;
     }

@@ -88,6 +88,8 @@ export default function Header() {
                     <Link to="/blog" className="hover:text-[#252B42]">Blog</Link>
                     <Link to="/contact" className="hover:text-[#252B42]">Contact</Link>
                     <Link to="/team" className="hover:text-[#252B42]">Team</Link>
+                    <Link to="/login" className="hover:text-[#252B42]">Login</Link>
+                    <Link to="/signup" className="hover:text-[#252B42]">Register</Link>
                 </nav>
                 <div className="hidden md:flex items-center space-x-4 px-2">
                     {user.name ? (

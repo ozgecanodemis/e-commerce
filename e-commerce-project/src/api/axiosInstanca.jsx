@@ -1,7 +1,12 @@
-import axios from "axios";
+// src/api/axiosInstanca.jsx
 
-const axiosInstance = axios.create({
-    baseURL: "https://workintech-fe-ecommerce.onrender.com/",
+import axios from 'axios';
+
+const myApi = axios.create({
+    baseURL: 'https://workintech-fe-ecommerce.onrender.com',
+    headers: {
+        'Content-Type': 'application/json',
+    },
 });
 
-export default axiosInstance;
+export default myApi;  // Ensure it's a default export
