@@ -24,18 +24,8 @@ const CategoryList = () => {
 
     return (
         <div>
-            <h2>Top 5 Categories</h2>
-            <ul>
-                {topCategories.map((category) => (
-                    <li key={category.id} className="flex items-center mb-4">
-                        <img src={category.img} alt={category.title} className="w-12 h-12 mr-4" />
-                        <Link to={`/shop/${category.gender}/${category.code}`} className="text-lg font-semibold">
-                            {category.title}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-        </div>
+
+        </div >
     );
 };
 

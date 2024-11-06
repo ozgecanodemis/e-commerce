@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProductPage from '../components/ProductPage';
+import Brands from '../components/Brands';
 
 const products = [
     { id: 1, name: 'Graphic Design', price: '$16.48', colors: ['sky', 'green', 'orange'] },
@@ -98,6 +99,7 @@ const ShopPage = () => {
                     <button onClick={handleNextPage} disabled={currentPage === totalPages} className="button-first-next">Next</button>
                 </div>
             </main>
+            <Brands />
         </div>
     );
 };

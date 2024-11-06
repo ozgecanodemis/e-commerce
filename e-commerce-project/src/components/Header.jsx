@@ -88,26 +88,28 @@ export default function Header() {
                     <Link to="/blog" className="hover:text-[#252B42]">Blog</Link>
                     <Link to="/contact" className="hover:text-[#252B42]">Contact</Link>
                     <Link to="/team" className="hover:text-[#252B42]">Team</Link>
-                    <Link to="/login" className="hover:text-[#252B42]">Login</Link>
+                    <div className="hidden md:flex items-center space-x-4 px-2">
+                        {user.name ? (
+                            <div className='flex items-center gap-2'>
+                                <img
+                                    src={user.avatar}
+                                    alt={user.name}
+                                    className="w-8 h-8 rounded-full object-cover border-2 border-gray-200"
+                                />
+                                <span className=" text-sm font-medium">
+                                    {user.name}
+                                </span>
+                            </div>
+                        ) : (
+                            <Link to="/login" className=" hover:text-[#252B42]">Login</Link>
+                        )}
+                    </div>
                     <Link to="/signup" className="hover:text-[#252B42]">Register</Link>
+
+
+
                 </nav>
-                <div className="hidden md:flex items-center space-x-4 px-2">
-                    {user.name ? (
-                        <div className='flex items-center gap-2'>
-                            <img
-                                src={user.avatar}
-                                alt={user.name}
-                                className="w-8 h-8 rounded-full object-cover border-2 border-gray-200"
-                            />
-                            <span className="text-[#252B42] text-sm font-medium">
-                                {user.name}
-                            </span>
-                        </div>
-                    ) : (
-                        <Link to="/login" className="text-[#23A6F0] hover:text-[#252B42]">Login</Link>
-                    )}
-                </div>
-                <div className="flex justify-between items-center py-4">
+                <div className=" hidden md:flex space-x-0 flex items-center py-2">
                     <FontAwesomeIcon icon={faSearch} className="py-2 px-2" />
                     <div className="flex items-center py-2 px-2">
                         <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
@@ -118,6 +120,8 @@ export default function Header() {
                         <span>1</span>
                     </div>
                 </div>
+
+
                 <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     {isMenuOpen ? <FontAwesomeIcon icon={faTimes} /> : <FontAwesomeIcon icon={faBars} />}
                 </button>
@@ -131,18 +135,19 @@ export default function Header() {
                         <Link to="/blog" className="py-2">Blog</Link>
                         <Link to="/contact" className="py-2">Contact</Link>
                         <Link to="/team" className="py-2">Team</Link>
+                        <div className="flex flex-col items-center py-4">
+                            <FontAwesomeIcon icon={faSearch} className="py-2" />
+                            <div className="flex items-center py-2">
+                                <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
+                                <span>1</span>
+                            </div>
+                            <div className="flex items-center py-2">
+                                <FontAwesomeIcon icon={faHeart} className="mr-2" />
+                                <span>1</span>
+                            </div>
+                        </div>
                     </nav>
-                    <div className="flex flex-col items-center py-4">
-                        <FontAwesomeIcon icon={faSearch} className="py-2" />
-                        <div className="flex items-center py-2">
-                            <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
-                            <span>1</span>
-                        </div>
-                        <div className="flex items-center py-2">
-                            <FontAwesomeIcon icon={faHeart} className="mr-2" />
-                            <span>1</span>
-                        </div>
-                    </div>
+
                 </div>
             )}
         </header>
