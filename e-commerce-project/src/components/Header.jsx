@@ -88,6 +88,11 @@ export default function Header() {
                     <Link to="/blog" className="hover:text-[#252B42]">Blog</Link>
                     <Link to="/contact" className="hover:text-[#252B42]">Contact</Link>
                     <Link to="/team" className="hover:text-[#252B42]">Team</Link>
+
+
+                </nav>
+
+                <div className=" hidden md:flex space-x-0 flex items-center py-2">
                     <div className="hidden md:flex items-center space-x-4 px-2">
                         {user.name ? (
                             <div className='flex items-center gap-2'>
@@ -104,12 +109,9 @@ export default function Header() {
                             <Link to="/login" className=" hover:text-[#252B42]">Login</Link>
                         )}
                     </div>
+                    <span className=" p-2 hover:text-[#252B42]"> / </span>
                     <Link to="/signup" className="hover:text-[#252B42]">Register</Link>
 
-
-
-                </nav>
-                <div className=" hidden md:flex space-x-0 flex items-center py-2">
                     <FontAwesomeIcon icon={faSearch} className="py-2 px-2" />
                     <div className="flex items-center py-2 px-2">
                         <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
