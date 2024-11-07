@@ -16,8 +16,9 @@ import LoginPage from './pages/LoginPage';
 import { verifyToken } from './store/actions/authActions';
 import axiosAuth from './api/axiosAuth';
 import CategoryList from './components/CategoryList';
+import ProductDetails from './pages/ProductDetails';
 
-const App = () => {
+export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,23 +44,19 @@ const App = () => {
       />
       <Layout>
         <Switch>
-
+          <Route path="/product/:id" component={ProductDetails} />
+          <Route exact path="/product" component={ProductPage} />
           <Route exact path="/" component={HomePage} />
-          <Route path="/product" component={ProductPage} />
           <Route exact path="/shop" component={ShopPage} />
-          <Route path="/shop/:gender/:category" component={ShopPage} />
+          <Route path="/shop/:code" component={ShopPage} />
           <Route path="/about" component={AboutUs} />
           <Route path="/team" component={TeamPage} />
           <Route path="/contact" component={Contact} />
           <Route path="/signup" component={SignUpForm} />
           <Route path="/blog" component={BlogPage} />
           <Route path="/login" component={LoginPage} />
-          <Route path="/shop/:category" component={ProductPage} />
         </Switch>
       </Layout>
-      <CategoryList />
     </Router>
   );
-};
-
-export default App;
+}

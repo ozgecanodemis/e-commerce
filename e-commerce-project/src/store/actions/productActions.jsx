@@ -1,39 +1,90 @@
-export const SET_PRODUCT_LIST = "SET_PRODUCT_LIST";
-export const SET_TOTAL_PRODUCT_COUNT = "SET_TOTAL_PRODUCT_COUNT";
-export const SET_PAGE_COUNT = "SET_PAGE_COUNT";
-export const SET_ACTIVE_PAGE = "SET_ACTIVE_PAGE";
-export const SET_FETCH_STATE = "SET_FETCH_STATE";
+import {
+    SET_CATEGORIES,
+    SET_FETCH_STATE,
+    SET_FILTER,
+    SET_LIMIT,
+    SET_OFFSET,
+    SET_PRODUCT_DETAIL,
+    SET_PRODUCT_LIST,
+    SET_TOTAL,
+} from "../reducers/productReducer";
+import myApi from '../../api/axiosInstanca';
 
-export const setProductList = (products) => {
-    return {
-        type: SET_PRODUCT_LIST,
-        payload: products,
-    };
+export const setCategories = (categories) => ({
+    type: SET_CATEGORIES,
+    payload: categories,
+});
+
+export const setProductList = (products) => ({
+    type: SET_PRODUCT_LIST,
+    payload: products,
+});
+
+export const setTotal = (total) => ({
+    type: SET_TOTAL,
+    payload: total,
+});
+
+export const setFetchState = (state) => ({
+    type: SET_FETCH_STATE,
+    payload: state,
+});
+
+export const setLimit = (limit) => ({
+    type: SET_LIMIT,
+    payload: limit,
+});
+
+export const setOffset = (offset) => ({
+    type: SET_OFFSET,
+    payload: offset,
+});
+
+export const setFilter = (filter) => ({
+    type: SET_FILTER,
+    payload: filter,
+});
+
+export const setProductDetail = (data) => ({
+    type: SET_PRODUCT_DETAIL,
+    payload: data,
+});
+
+export const fetchProducts = (categoryCode = "", limit = 16, offset = 0, filter = "") => (dispatch) => {
+    dispatch(setFetchState("loading"));
+
+    let queryString = `limit=${limit}&offset=${offset}&filter=${filter}`;
+
+    if (categoryCode) {
+        queryString += `&category=${categoryCode}`;
+    }
+
+    const endpoint = `/products?${queryString}`;
+
+    return myApi
+        .get(endpoint)
+        .then((response) => {
+            dispatch(setProductList(response.data.products));
+            dispatch(setTotal(response.data.total));
+            dispatch(setFetchState("success"));
+        })
+        .catch((error) => {
+            console.error("Error fetching products:", error);
+            dispatch(setFetchState("error"));
+        });
 };
 
-export const setTotalProductCount = () => {
-    return {
-        type: SET_TOTAL_PRODUCT_COUNT,
-    };
-};
+export const fetchCategories = () => (dispatch) => {
+    dispatch(setFetchState("loading"));
 
-export const setPageCount = (count) => {
-    return {
-        type: SET_PAGE_COUNT,
-        payload: count,
-    };
-};
-
-export const setActivePage = (page) => {
-    return {
-        type: SET_ACTIVE_PAGE,
-        payload: page,
-    };
-};
-
-export const setFetchState = (fetchState) => {
-    return {
-        type: SET_FETCH_STATE,
-        payload: fetchState,
-    };
+    return myApi
+        .get("/categories")
+        .then((response) => {
+            dispatch(setCategories(response.data));
+            dispatch(setFetchState("success"));
+        })
+        .catch((error) => {
+            console.error("Error fetching categories:", error);
+            dispatch(setFetchState("error"));
+        });
 };

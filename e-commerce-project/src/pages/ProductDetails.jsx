@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter, Link, useParams } from 'react-router-dom'; // Link ve useParams'i içe aktar
-import { User, Search, ShoppingCart, Heart, Eye } from 'react-feather';
+import { Link, useParams } from 'react-router-dom';
+import { Heart, ShoppingCart, Eye } from 'react-feather';
 import axios from 'axios';
 import Brands from '../components/Brands.jsx';
 
-
 const ProductDetails = () => {
-    const { id } = useParams(); // URL'deki id parametresini al
+    const { id } = useParams(); // Get product ID from URL params
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [otherProducts, setOtherProducts] = useState([]); // Diğer ürünler için state
+    const [otherProducts, setOtherProducts] = useState([]); // For related products
 
     useEffect(() => {
-        // Ürünü fake store API'sinden çek
-        axios.get(`https://fakestoreapi.com/products/${id}`)
+        // Fetch the product details by ID from the new API
+        axios.get(`https://workintech-fe-ecommerce.onrender.com/products/${id}`)
             .then(response => {
-                setProduct(response.data);
+                setProduct(response.data); // Set the fetched product data
                 setLoading(false);
             })
             .catch(error => {
@@ -25,10 +24,10 @@ const ProductDetails = () => {
     }, [id]);
 
     useEffect(() => {
-        // Tüm ürünleri çek ve dört tanesini al
-        axios.get('https://fakestoreapi.com/products')
+        // Fetch the products from the API for related products (excluding the current product)
+        axios.get('https://workintech-fe-ecommerce.onrender.com/products')
             .then(response => {
-                const filteredProducts = response.data.filter(item => item.id !== parseInt(id)).slice(0, 4);
+                const filteredProducts = response.data.products.filter(item => item.id !== parseInt(id)).slice(0, 8); // Exclude current product and get top 8
                 setOtherProducts(filteredProducts);
             })
             .catch(error => {
@@ -41,39 +40,63 @@ const ProductDetails = () => {
     }
 
     return (
-        <div className="flex-col min-h-screen bg-[#FFFFF] ">
-
-            {/* Ürün Detayları */}
+        <div className="flex-col min-h-screen bg-[#FFFFF]">
+            {/* Product Details Section */}
             <main className="flex-grow p-4">
                 {product ? (
                     <div className="product-details">
-                        {/* Ürün Resmi Carousel */}
+                        {/* Product Image Carousel */}
                         <div className="carousel w-[332px] h-[300px] mx-auto bg-gray-100">
-                            <img src={product.image} alt={product.title} className="w-full h-full object-contain" />
+                            <img
+                                src={product.images[0].url}
+                                alt={product.name}
+                                className="w-full h-full object-contain"
+                            />
                         </div>
 
-                        <h1 className="text-[24px] font-bold text-[#252B42] mt-4 text-center">{product.title}</h1>
+                        <h1 className="text-[24px] font-bold text-[#252B42] mt-4 text-center">{product.name}</h1>
 
-                        {/* Yıldız Derecelendirmesi */}
+                        {/* Rating */}
                         <div className="flex justify-center gap-1 mt-2 text-[#FFCC00]">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>☆</span>
+                            {Array.from({ length: 5 }, (_, index) => (
+                                <span key={index}>
+                                    {index < Math.round(product.rating) ? '★' : '☆'}
+                                </span>
+                            ))}
                         </div>
 
-                        <p className="text-[#737373] text-[18px] text-center mt-2">${product.price}</p>
+                        {/* Price Section */}
+                        <div className="text-center mt-4">
+                            {product.discountedPrice ? (
+                                <>
+                                    <span className="text-[#BDBDBD] text-[16px] font-[700] leading-[24px] tracking-[0.1px] line-through mr-2">
+                                        ${product.originalPrice}
+                                    </span>
+                                    <span className="text-[#FF5733] text-[18px] font-[700] leading-[24px] tracking-[0.1px]">
+                                        ${product.discountedPrice}
+                                    </span>
+                                </>
+                            ) : (
+                                <span className="text-[#737373] text-[18px] font-[700] leading-[24px] tracking-[0.1px]">
+                                    ${product.price}
+                                </span>
+                            )}
+                        </div>
 
                         <p className="text-[#23856D] text-center mt-2">Availability: In Stock</p>
 
                         <p className="text-[#737373] text-center mt-4">{product.description}</p>
 
-                        {/* Ürün Renk Seçenekleri */}
+                        {/* Product Color Options */}
                         <div className="flex justify-center gap-2 mt-4">
+                            {/* Sample color options, replace with real options if available */}
                             <span className="w-4 h-4 rounded-full bg-[#23A6F0]"></span>
                             <span className="w-4 h-4 rounded-full bg-[#23856D]"></span>
                             <span className="w-4 h-4 rounded-full bg-[#E77C40]"></span>
                             <span className="w-4 h-4 rounded-full bg-[#252B42]"></span>
                         </div>
 
-                        {/* Seçenek Butonu ve İkonlar */}
+                        {/* Options and Icons */}
                         <div className="flex items-center justify-center mt-6 space-x-4">
                             <button className="bg-[#23A6F0] text-white py-2 px-4 rounded">Select Options</button>
                             <Heart className="text-[#252B42]" />
@@ -86,15 +109,19 @@ const ProductDetails = () => {
                 )}
             </main>
 
-            {/* Diğer Ürünler */}
-            <section className="w-[331px] h-auto mx-auto p-[48px_0] space-y-[24px]">
-                <h2 className="text-[20px] font-bold text-center mb-4">Bestseller Products</h2>
-                <div className="flex flex-wrap justify-center gap-4"> {/* flex-wrap ve justify-center ekledik */}
+            {/* Related Products Section */}
+            <section className="w-full mx-auto py-12 space-y-6 md:w-[1124px] md:h-[1086px] md:left-[195px] ">
+                <h2 className="text-2xl font-bold text-center mb-4">Bestseller Products</h2>
+                <div className="flex flex-wrap justify-center gap-6 md:flex-row md:gap-6">
                     {otherProducts.map((product) => (
                         <Link key={product.id} to={`/product/${product.id}`}>
                             <div className="border p-4 text-center w-[328px] h-auto">
-                                <img src={product.image} alt={product.title} className="h-[150px] w-full object-contain mb-2" />
-                                <p className="text-sm font-medium">{product.title}</p>
+                                <img
+                                    src={product.images[0].url}
+                                    alt={product.name}
+                                    className="h-[150px] w-full object-contain mb-2"
+                                />
+                                <p className="text-sm font-medium">{product.name}</p>
                                 <p className="text-xs text-[#737373]">${product.price}</p>
                             </div>
                         </Link>
@@ -103,10 +130,8 @@ const ProductDetails = () => {
             </section>
 
             <Brands />
-
-
-        </div >
+        </div>
     );
 };
 
-export default withRouter(ProductDetails);
+export default ProductDetails;

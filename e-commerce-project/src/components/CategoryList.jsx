@@ -17,21 +17,15 @@ const CategoryList = () => {
     if (status === 'loading') return <p>Loading...</p>;
     if (status === 'failed') return <p>Error loading categories.</p>;
 
+    // Create a shallow copy of the array before sorting
+    const topCategories = [...categories]
+        .sort((a, b) => b.rating - a.rating) // Get top 5 based on rating
+        .slice(0, 5);
+
     return (
         <div>
-            <h2>Top 5 Categories</h2>
-            <ul>
-                {categories.slice(0, 5).map((category) => (
-                    <li key={category}> {/* Kategorinin kendisini key olarak kullanıyoruz */}
-                        <Link to={`/shop/${category}`}>
-                            {/* Eğer kategori nesnelerinde image yoksa, bunu kaldırmalısınız */}
-                            {/* <img src={category.image} alt={category.name} /> */}
-                            {category}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-        </div>
+
+        </div >
     );
 };
 

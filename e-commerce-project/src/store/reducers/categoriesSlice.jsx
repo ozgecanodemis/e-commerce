@@ -1,19 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-// Fake Store API adresini tanımlayalım
-const API_BASE_URL = 'https://fakestoreapi.com/products/categories';
 
 export const fetchCategories = createAsyncThunk(
     'categories/fetchCategories',
-    async (_, { rejectWithValue }) => {
-        try {
-            const response = await axios.get(API_BASE_URL);
-            // API'den gelen yanıtın bir dizi olduğundan emin olalım
-            return Array.isArray(response.data) ? response.data : [];
-        } catch (error) {
-            return rejectWithValue(error.response?.data || 'Kategoriler alınırken bir hata oluştu');
-        }
+    async () => {
+        const response = await fetch('https://workintech-fe-ecommerce.onrender.com/categories');
+        const data = await response.json();
+        return data;
     }
 );
 
@@ -22,7 +14,7 @@ const categoriesSlice = createSlice({
     initialState: {
         items: [],
         status: 'idle',
-        error: null
+        error: null,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -36,7 +28,7 @@ const categoriesSlice = createSlice({
             })
             .addCase(fetchCategories.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.payload;
+                state.error = action.error.message;
             });
     },
 });

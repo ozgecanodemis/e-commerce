@@ -2,6 +2,9 @@ import md5 from 'md5';
 import axiosAuth from '../../api/axiosAuth';
 import { setUser } from './userActions';
 import { toast } from 'react-toastify';
+import { setCategories } from "./productActions";
+import myApi from '../../api/axiosInstanca';
+
 
 export const loginUser = (credentials, rememberMe, history) => async (dispatch) => {
     try {
@@ -58,4 +61,43 @@ export const logoutUser = () => (dispatch) => {
     localStorage.removeItem('token');
     delete axiosAuth.defaults.headers.common['Authorization'];
     dispatch(setUser({}));
+};
+
+export const fetchCategories = () => (dispatch) => {
+    dispatch(setFetchState("loading"));
+
+    return myApi
+        .get("/categories")
+        .then((response) => {
+            dispatch(setCategories(response.data));
+            dispatch(setFetchState("success"));
+        })
+        .catch((error) => {
+            console.error("Error fetching categories:", error);
+            dispatch(setFetchState("error"));
+        });
+};
+
+export const fetchProducts = (categoryCode = "", limit = 16, offset = 0, filter = "") => (dispatch) => {
+    dispatch(setFetchState("loading"));
+
+    let queryString = `limit=${limit}&offset=${offset}&filter=${filter}`;
+
+    if (categoryCode) {
+        queryString += `&category=${categoryCode}`;
+    }
+
+    const endpoint = `/products?${queryString}`;
+
+    return myApi
+        .get(endpoint)
+        .then((response) => {
+            dispatch(setProductList(response.data.products));
+            dispatch(setTotal(response.data.total));
+            dispatch(setFetchState("success"));
+        })
+        .catch((error) => {
+            console.error("Error fetching products:", error);
+            dispatch(setFetchState("error"));
+        });
 };
