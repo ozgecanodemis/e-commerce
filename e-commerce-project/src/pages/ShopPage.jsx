@@ -5,6 +5,7 @@ import { fetchCategories, fetchProducts } from '../store/actions/productActions'
 import ProductPage from '../components/ProductPage';
 import Brands from '../components/Brands';
 import Spinner from '../components/Spinner'; // You'll need to create this component
+import CategoryList from '../components/CategoryList';
 
 const ShopPage = () => {
     const dispatch = useDispatch();
@@ -49,26 +50,11 @@ const ShopPage = () => {
 
     return (
         <div className="flex flex-col min-h-screen bg-white">
-            <div className="flex flex-col md:flex-row md:flex-wrap md:justify-center limited-width mx-20">
-                {topCategories.map((category) => (
-                    <div key={category.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2">
-                        <div className="relative pb-[100%]">
-                            <div className="absolute inset-0 bg-gray-200 overflow-hidden shadow-md">
-                                <img src={category.img} alt={category.title} className="w-full h-full object-cover" />
-                                <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center">
-                                    <Link to={`/shop/${category.gender}/${category.title.toLowerCase()}`}>
-                                        <h2 className="text-white text-lg font-bold text-center">{category.title}</h2>
-                                    </Link>
-                                    <p className="text-white text-sm text-center">Rating: {category.rating.toFixed(1)} </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
 
             <main className="flex-grow container mx-auto px-4 py-8">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center md:text-left">Shop</h2>
+                <CategoryList />
+
                 <div className="flex flex-col md:flex-row justify-between mb-8">
                     <div className="flex items-center justify-center md:justify-start space-x-4 mb-4 md:mb-0">
                         <span>Views:</span>
@@ -92,7 +78,6 @@ const ShopPage = () => {
                         <button className="bg-blue-500 text-white px-4 py-2 rounded">Filter</button>
                     </div>
                 </div>
-
                 <div className="mt-6 w-full">
                     <ProductPage products={products} />
                 </div>

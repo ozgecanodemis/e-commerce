@@ -50,13 +50,16 @@ export const setProductDetail = (data) => ({
     payload: data,
 });
 
-export const fetchProducts = (categoryCode = "", limit = 16, offset = 0, filter = "") => (dispatch) => {
+export const fetchProducts = (categoryCode = "", limit = 16, offset = 0, filter = "", gender = "") => (dispatch) => {
     dispatch(setFetchState("loading"));
 
     let queryString = `limit=${limit}&offset=${offset}&filter=${filter}`;
 
     if (categoryCode) {
         queryString += `&category=${categoryCode}`;
+    }
+    if (gender) {
+        queryString += `&gender=${gender}`;
     }
 
     const endpoint = `/products?${queryString}`;
