@@ -8,6 +8,7 @@ import {
     SET_PRODUCT_LIST,
     SET_TOTAL,
 } from "../reducers/productReducer";
+import myApi from '../../api/axiosInstanca';
 
 export const setCategories = (categories) => ({
     type: SET_CATEGORIES,
@@ -43,7 +44,47 @@ export const setFilter = (filter) => ({
     type: SET_FILTER,
     payload: filter,
 });
+
 export const setProductDetail = (data) => ({
     type: SET_PRODUCT_DETAIL,
     payload: data,
 });
+
+export const fetchProducts = (categoryCode = "", limit = 16, offset = 0, filter = "") => (dispatch) => {
+    dispatch(setFetchState("loading"));
+
+    let queryString = `limit=${limit}&offset=${offset}&filter=${filter}`;
+
+    if (categoryCode) {
+        queryString += `&category=${categoryCode}`;
+    }
+
+    const endpoint = `/products?${queryString}`;
+
+    return myApi
+        .get(endpoint)
+        .then((response) => {
+            dispatch(setProductList(response.data.products));
+            dispatch(setTotal(response.data.total));
+            dispatch(setFetchState("success"));
+        })
+        .catch((error) => {
+            console.error("Error fetching products:", error);
+            dispatch(setFetchState("error"));
+        });
+};
+
+export const fetchCategories = () => (dispatch) => {
+    dispatch(setFetchState("loading"));
+
+    return myApi
+        .get("/categories")
+        .then((response) => {
+            dispatch(setCategories(response.data));
+            dispatch(setFetchState("success"));
+        })
+        .catch((error) => {
+            console.error("Error fetching categories:", error);
+            dispatch(setFetchState("error"));
+        });
+};
