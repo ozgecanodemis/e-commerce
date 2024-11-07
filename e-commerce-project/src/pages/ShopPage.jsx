@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { fetchCategories, fetchProducts } from '../store/actions/productActions';
 import ProductPage from '../components/ProductPage';
-import Brands from '../components/Brands';
 import Spinner from '../components/Spinner'; // You'll need to create this component
 import CategoryList from '../components/CategoryList';
 
@@ -99,7 +98,7 @@ const ShopPage = () => {
                     <button onClick={handleNextPage} disabled={currentPage === totalPages} className="button-first-next">Next</button>
                 </div>
             </main>
-            <Brands />
+
         </div >
     );
 };
