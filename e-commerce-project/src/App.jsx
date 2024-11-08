@@ -44,17 +44,20 @@ export default function App() {
       />
       <Layout>
         <Switch>
+          <Route exact path="/shop" component={ShopPage} />
+          <Route path="/shop/:gender/:category/:categoryId" component={ShopPage} />
           <Route path="/product/:id" component={ProductDetails} />
           <Route exact path="/product" component={ProductPage} />
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/shop" component={ShopPage} />
-          <Route path="/shop/:code" component={ShopPage} />
+
+
           <Route path="/about" component={AboutUs} />
           <Route path="/team" component={TeamPage} />
           <Route path="/contact" component={Contact} />
           <Route path="/signup" component={SignUpForm} />
           <Route path="/blog" component={BlogPage} />
           <Route path="/login" component={LoginPage} />
+
         </Switch>
       </Layout>
     </Router>

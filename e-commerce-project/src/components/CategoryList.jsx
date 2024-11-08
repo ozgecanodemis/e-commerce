@@ -1,18 +1,15 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategories } from '../store/reducers/categoriesSlice';
 import { Link } from 'react-router-dom';
+import { fetchCategories } from '../store/actions/authActions';
 
 const CategoryList = () => {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.categories.items);
-    const status = useSelector((state) => state.categories.status);
 
     useEffect(() => {
-        if (status === 'idle') {
-            dispatch(fetchCategories());
-        }
-    }, [status, dispatch]);
+        dispatch(fetchCategories());
+    }, [dispatch]);
 
     if (status === 'loading') return <p>Loading...</p>;
     if (status === 'failed') return <p>Error loading categories.</p>;
@@ -31,7 +28,7 @@ const CategoryList = () => {
                             <div className="absolute inset-0 bg-gray-200 overflow-hidden shadow-md">
                                 <img src={category.img} alt={category.title} className="w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center">
-                                    <Link to={`/shop/${category.gender}/${category.title.toLowerCase()}`}>
+                                    <Link to={`/shop/${category.code.split(":")[0] === "e" ? "erkek" : "kadin"}/${category.code.split(":")[1].toLowerCase()}`}>
                                         <h2 className="text-white text-lg font-bold text-center">{category.title}</h2>
                                     </Link>
                                     <p className="text-white text-sm text-center">Rating: {category.rating.toFixed(1)} </p>
