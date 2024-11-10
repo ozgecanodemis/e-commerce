@@ -2,6 +2,13 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+
+
+  resolve: {
+    alias: {
+      '@': '/src', // Ensure this matches the path to your 'src' directory
+    },
+  },
   plugins: [react()],
   server: {
     proxy: {
@@ -10,6 +17,7 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
-    },
+    }
   },
+
 });

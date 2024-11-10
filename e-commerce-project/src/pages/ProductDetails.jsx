@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Heart, ShoppingCart, Eye } from 'react-feather';
+import { Heart, ShoppingCart, Eye, ChevronLeft, ChevronRight } from 'react-feather';
 import axios from 'axios';
 import Brands from '../components/Brands.jsx';
 
@@ -9,9 +9,10 @@ const ProductDetails = () => {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [otherProducts, setOtherProducts] = useState([]); // For related products
+    const [currentImage, setCurrentImage] = useState(0); // Initialize current image state
 
     useEffect(() => {
-        // Fetch the product details by ID from the new API
+        // Fetch the product details by ID from the API
         axios.get(`https://workintech-fe-ecommerce.onrender.com/products/${id}`)
             .then(response => {
                 setProduct(response.data); // Set the fetched product data
@@ -24,14 +25,14 @@ const ProductDetails = () => {
     }, [id]);
 
     useEffect(() => {
-        // Fetch the products from the API for related products (excluding the current product)
+        // Fetch other products for related products (excluding the current product)
         axios.get('https://workintech-fe-ecommerce.onrender.com/products')
             .then(response => {
-                const filteredProducts = response.data.products.filter(item => item.id !== parseInt(id)).slice(0, 8); // Exclude current product and get top 8
+                const filteredProducts = response.data.products.filter(item => item.id !== parseInt(id)).slice(0, 8);
                 setOtherProducts(filteredProducts);
             })
             .catch(error => {
-                console.error('Error fetching products:', error);
+                console.error('Error fetching related products:', error);
             });
     }, [id]);
 
@@ -39,20 +40,75 @@ const ProductDetails = () => {
         return <p>Loading product details...</p>;
     }
 
+    const handlePrevImage = () => {
+        setCurrentImage((prev) => (prev > 0 ? prev - 1 : allImages.length - 1));
+    };
+
+    const handleNextImage = () => {
+        setCurrentImage((prev) => (prev < allImages.length - 1 ? prev + 1 : 0));
+    };
+
+    // Sample random image URLs for placeholders
+    const randomImages = [
+        'https://picsum.photos/200/300',
+        'https://picsum.photos/id/237/200/300',
+    ];
+
+    // Combine product images with random images (if available)
+    const allImages = [
+        product.images[0]?.url, // The first image from the product images
+        randomImages[0],         // Random image for the second slot
+        randomImages[1],         // Random image for the third slot
+        product.images[1]?.url,  // The second image from the product images
+        product.images[2]?.url,  // The third image from the product images
+    ].filter(Boolean); // Filter out any null or undefined values
+
     return (
         <div className="flex-col min-h-screen bg-[#FFFFF]">
-            {/* Product Details Section */}
             <main className="flex-grow p-4">
                 {product ? (
                     <div className="product-details">
                         {/* Product Image Carousel */}
-                        <div className="carousel w-[332px] h-[300px] mx-auto bg-gray-100">
+                        <div className="relative w-[332px] h-[300px] mx-auto bg-gray-100">
                             <img
-                                src={product.images[0].url}
+                                src={allImages[currentImage]}
                                 alt={product.name}
                                 className="w-full h-full object-contain"
                             />
+                            <button
+                                onClick={handlePrevImage}
+                                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 shadow-lg"
+                            >
+                                <ChevronLeft className="h-4 w-4" />
+                            </button>
+                            <button
+                                onClick={handleNextImage}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 shadow-lg"
+                            >
+                                <ChevronRight className="h-4 w-4" />
+                            </button>
                         </div>
+
+                        <div className="flex gap-4  overflow-auto m-8 pb-2 ">
+                            {/* Combine the first image, random images, and the remaining product images */}
+                            {[product.images[0]?.url, ...randomImages, ...product.images.slice(1).map((img) => img.url)].map((image, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setCurrentImage(index)}
+                                    className={`relative shrink-0 overflow-hidden rounded-lg border ${currentImage === index ? 'ring-2 ring-primary' : ''}`}
+                                >
+                                    <img
+                                        src={image} // Correctly use the image URL here
+                                        alt={`Thumbnail ${index + 1}`}
+                                        className="h-20 w-20 object-cover"
+                                    />
+                                </button>
+                            ))}
+                        </div>
+
+
+
+
 
                         <h1 className="text-[24px] font-bold text-[#252B42] mt-4 text-center">{product.name}</h1>
 
@@ -109,25 +165,41 @@ const ProductDetails = () => {
                 )}
             </main>
 
-            {/* Related Products Section */}
-            <section className="w-full mx-auto py-12 space-y-6 md:w-[1124px] md:h-[1086px] md:left-[195px] ">
-                <h2 className="text-2xl font-bold text-center mb-4">Bestseller Products</h2>
-                <div className="flex flex-wrap justify-center gap-6 md:flex-row md:gap-6">
+            <section className="mt-20 p-4">
+                <div className="w-full max-w-md flex flex-col justify-center items-center text-center mx-auto mb-6">
+                    <h6 className="text-[20px] font-[400] text-[#737373] leading-[30px] tracking-[0.2px] font-montserrat mb-4">Featured Products</h6>
+                    <h1 className="text-[24px] font-[700] text-[#252B42] leading-[32px] tracking-[0.1px] font-montserrat mb-4">BESTSELLER PRODUCTS</h1>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto">
                     {otherProducts.map((product) => (
-                        <Link key={product.id} to={`/product/${product.id}`}>
-                            <div className="border p-4 text-center w-[328px] h-auto">
+                        <div key={product.id} className="product-card p-4 rounded-lg transition-transform duration-200 hover:scale-105">
+                            <Link to={`/product/${product.id}`}>
                                 <img
                                     src={product.images[0].url}
                                     alt={product.name}
-                                    className="h-[150px] w-full object-contain mb-2"
+                                    className="w-full h-auto mb-4"
                                 />
-                                <p className="text-sm font-medium">{product.name}</p>
-                                <p className="text-xs text-[#737373]">${product.price}</p>
+                            </Link>
+                            <div className="product-info">
+                                <h2 className="text-[16px] font-[700] text-[#252B42] leading-[24px] tracking-[0.1px] text-center font-montserrat">{product.name}</h2>
+                                <p className="text-[14px] font-[700] text-[#737373] leading-[24px] tracking-[0.2px] text-center font-montserrat">
+                                    <span className="text-[#BDBDBD] text-[16px] font-[700] leading-[24px] tracking-[0.1px] text-center line-through">
+                                        ${product.price}
+                                    </span>
+                                    <span className="ml-2 text-[#23856D] text-[16px] font-[700] leading-[24px] tracking-[0.1px] text-center">${(product.price * 0.8).toFixed(2)}</span>
+                                </p>
+                                <div className="flex justify-center gap-2 mt-2">
+                                    <span className="w-4 h-4 rounded-full bg-[#23A6F0]"></span>
+                                    <span className="w-4 h-4 rounded-full bg-[#23856D]"></span>
+                                    <span className="w-4 h-4 rounded-full bg-[#E77C40]"></span>
+                                    <span className="w-4 h-4 rounded-full bg-[#252B42]"></span>
+                                </div>
                             </div>
-                        </Link>
+                        </div>
                     ))}
                 </div>
             </section>
+
 
             <Brands />
         </div>
