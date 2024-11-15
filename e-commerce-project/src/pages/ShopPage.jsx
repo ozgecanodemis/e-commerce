@@ -147,7 +147,6 @@ const ShopPage = () => {
                 </p>
 
 
-
                 {/* Products Section */}
                 <ProductPage />
 
@@ -203,3 +202,5 @@ const ShopPage = () => {
 };
 
 export default ShopPage;
+
+//pagination is ok 
