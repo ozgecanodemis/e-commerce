@@ -51,21 +51,6 @@ export default function ProductPage({ limit, page }) {
 
     return (
         <div className="p-4 mt-20">
-            {/* Sorting Dropdown */}
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-[24px] font-[700] text-[#252B42]">BESTSELLER PRODUCTS</h1>
-                <select
-                    className="p-2 border rounded"
-                    onChange={handleSortChange}
-                    value={sort}
-                >
-                    <option value="">Sort by</option>
-                    <option value="price:asc">Price: Low to High</option>
-                    <option value="price:desc">Price: High to Low</option>
-                    <option value="rating:asc">Rating: Low to High</option>
-                    <option value="rating:desc">Rating: High to Low</option>
-                </select>
-            </div>
 
             {/* Product Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto">

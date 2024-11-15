@@ -146,35 +146,7 @@ const ShopPage = () => {
                     Showing {products.length} of {total} results
                 </p>
 
-                {/* Sort and Filter Controls */}
-                <div className="flex flex-col md:flex-row justify-between mb-8">
-                    <div className="flex items-center space-x-4">
-                        <input
-                            type="text"
-                            placeholder="Filter products..."
-                            value={filterInput}
-                            onChange={handleFilterInputChange}
-                            className="p-2 border rounded"
-                        />
-                        <button
-                            onClick={handleFilterApply}
-                            className="bg-blue-500 text-white px-4 py-2 rounded"
-                        >
-                            Filter
-                        </button>
-                        <select
-                            className="p-2 border rounded"
-                            onChange={handleSortChange}
-                            value={sort}
-                        >
-                            <option value="">Sort by Popularity</option>
-                            <option value="price:asc">Price: Low to High</option>
-                            <option value="price:desc">Price: High to Low</option>
-                            <option value="rating:asc">Rating: Low to High</option>
-                            <option value="rating:desc">Rating: High to Low</option>
-                        </select>
-                    </div>
-                </div>
+
 
                 {/* Products Section */}
                 <ProductPage />
