@@ -15,8 +15,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './pages/LoginPage';
 import { verifyToken } from './store/actions/authActions';
 import axiosAuth from './api/axiosAuth';
-import CategoryList from './components/CategoryList';
 import ProductDetails from './pages/ProductDetails';
+import CategoryPage from './pages/CategoryPage';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -44,11 +44,12 @@ export default function App() {
       />
       <Layout>
         <Switch>
+          {/* Place more specific routes first */}
+          <Route path="/shop/:gender/:category/:categoryId" component={CategoryPage} />
+          <Route exact path="/shop" component={ShopPage} />
           <Route path="/product/:id" component={ProductDetails} />
           <Route exact path="/product" component={ProductPage} />
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/shop" component={ShopPage} />
-          <Route path="/shop/:code" component={ShopPage} />
           <Route path="/about" component={AboutUs} />
           <Route path="/team" component={TeamPage} />
           <Route path="/contact" component={Contact} />

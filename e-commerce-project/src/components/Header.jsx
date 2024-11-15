@@ -3,23 +3,21 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faTimes, faBars, faSearch, faShoppingCart, faHeart } from '@fortawesome/free-solid-svg-icons';
-import { fetchCategories } from '../store/reducers/categoriesSlice';
 import { useLocation } from 'react-router-dom';
+import { fetchCategories } from '../store/actions/authActions';
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
     const dispatch = useDispatch();
-    const categories = useSelector((state) => state.categories.items);
-    const categoriesStatus = useSelector((state) => state.categories.status);
+    const categories = useSelector((state) => state.product.categories);
     const user = useSelector(state => state.client.user);
     const location = useLocation();
 
     useEffect(() => {
-        if (categoriesStatus === 'idle') {
-            dispatch(fetchCategories());
-        }
-    }, [categoriesStatus, dispatch]);
+        dispatch(fetchCategories());
+
+    }, [dispatch]);
 
     useEffect(() => {
         setIsMenuOpen(false);
@@ -27,13 +25,13 @@ export default function Header() {
     }, [location]);
 
     const renderCategoryDropdown = () => {
-        if (categoriesStatus === 'loading') {
+        if ("load" === 'loading') {
             return <div className="p-4">Loading categories...</div>;
         }
 
         // Filter categories by gender
-        const womenCategories = categories.filter(cat => cat.gender === 'k');
-        const menCategories = categories.filter(cat => cat.gender === 'e');
+        const womenCategories = categories.filter(cat => cat.code.split(":")[0] === 'k');
+        const menCategories = categories.filter(cat => cat.code.split(":")[0] === 'e');
 
         return (
             <div className="absolute left-0 mt-2 w-[200px] bg-white border border-gray-200 shadow-lg z-50">
@@ -42,7 +40,7 @@ export default function Header() {
                     {womenCategories.map((category) => (
                         <Link
                             key={category.id}
-                            to={`/shop/${category.code}`}  // Ensure this matches the desired route format
+                            to={`/shop/kadin/${category.code.split(":")[1].toLowerCase()}/${category.id}`}  // Ensure this matches the desired route format
                             className="block px-4 py-2 text-sm text-gray-400 hover:bg-gray-100"
                             onClick={() => setIsCategoryDropdownOpen(false)}
                         >
@@ -53,7 +51,7 @@ export default function Header() {
                     {menCategories.map((category) => (
                         <Link
                             key={`men-${category.id}`}
-                            to={`/shop/${category.code}`}
+                            to={`/shop/erkek/${category.code.split(":")[1].toLowerCase()}/${category.id}`}
                             className="block px-4 py-2 text-sm text-gray-400 hover:bg-gray-100"
                             onClick={() => setIsCategoryDropdownOpen(false)}
                         >
@@ -88,6 +86,11 @@ export default function Header() {
                     <Link to="/blog" className="hover:text-[#252B42]">Blog</Link>
                     <Link to="/contact" className="hover:text-[#252B42]">Contact</Link>
                     <Link to="/team" className="hover:text-[#252B42]">Team</Link>
+
+
+                </nav>
+
+                <div className=" hidden md:flex space-x-0 flex items-center py-2">
                     <div className="hidden md:flex items-center space-x-4 px-2">
                         {user.name ? (
                             <div className='flex items-center gap-2'>
@@ -104,12 +107,9 @@ export default function Header() {
                             <Link to="/login" className=" hover:text-[#252B42]">Login</Link>
                         )}
                     </div>
+                    <span className=" p-2 hover:text-[#252B42]"> / </span>
                     <Link to="/signup" className="hover:text-[#252B42]">Register</Link>
 
-
-
-                </nav>
-                <div className=" hidden md:flex space-x-0 flex items-center py-2">
                     <FontAwesomeIcon icon={faSearch} className="py-2 px-2" />
                     <div className="flex items-center py-2 px-2">
                         <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
