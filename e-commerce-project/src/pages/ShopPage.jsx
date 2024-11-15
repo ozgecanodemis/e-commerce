@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams, useHistory, useLocation } from 'react-router-dom';
-import { fetchCategories, fetchProducts } from '../store/actions/productActions';
+import { fetchCategories, fetchProducts } from '../store/actions/authActions';
 import ProductPage from '../components/ProductPage';
 import Brands from '../components/Brands';
 import Spinner from '../components/Spinner';
@@ -9,57 +9,109 @@ import Spinner from '../components/Spinner';
 const ShopPage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { gender, category, categoryId } = useParams();
     const location = useLocation();
-    const categories = useSelector(state => state.product.categories);
-    const products = useSelector(state => state.product.productList);
-    const total = useSelector(state => state.product.total);
-    const fetchState = useSelector(state => state.product.fetchState);
+    const { gender, category, categoryId } = useParams();
 
+    // Redux state selectors
+    const categories = useSelector((state) => state.product.categories);
+    const products = useSelector((state) => state.product.productList);
+    const total = useSelector((state) => state.product.total);
+    const fetchState = useSelector((state) => state.product.fetchState);
+
+    // Local states
     const [currentPage, setCurrentPage] = useState(1);
+    const [sort, setSort] = useState('');
+    const [filter, setFilter] = useState('');
+    const [filterInput, setFilterInput] = useState('');
     const itemsPerPage = window.innerWidth <= 414 ? 4 : 16;
     const totalPages = Math.ceil(total / itemsPerPage);
 
+    // Function to fetch products
+    const loadProducts = useCallback(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const categoryParam = queryParams.get('category') || categoryId || '';
+        const sortParam = queryParams.get('sort') || '';
+        const filterParam = queryParams.get('filter') || '';
+        const limit = itemsPerPage;
+        const offset = (currentPage - 1) * limit;
+
+        setSort(sortParam);
+        setFilter(filterParam);
+        setFilterInput(filterParam);
+
+        let queryString = `limit=${limit}&offset=${offset}`;
+        if (categoryParam) queryString += `&category=${categoryParam}`;
+        if (sortParam) queryString += `&sort=${sortParam}`;
+        if (filterParam) queryString += `&filter=${filterParam}`;
+
+        dispatch(fetchProducts(queryString));
+    }, [dispatch, location.search, currentPage, itemsPerPage, categoryId]);
+
+    // Fetch categories on mount
     useEffect(() => {
         dispatch(fetchCategories());
     }, [dispatch]);
 
+    // Fetch products when dependencies change
     useEffect(() => {
-        const queryParams = new URLSearchParams(location.search);
-        const categoryId = queryParams.get("category");
-        const limit = queryParams.get("limit") || itemsPerPage;
+        loadProducts();
+    }, [loadProducts]);
 
-        if (gender && category && categoryId) {
-            dispatch(fetchProducts(`category=${categoryId}`, limit, (currentPage - 1) * limit));
-        } else {
-            dispatch(fetchProducts("", limit, (currentPage - 1) * limit));
-        }
-    }, [dispatch, gender, category, currentPage, itemsPerPage, location.search]);
+    // Update URL with query parameters
+    const updateUrl = useCallback(
+        (params) => {
+            const queryParams = new URLSearchParams(location.search);
+            Object.entries(params).forEach(([key, value]) => {
+                if (value) {
+                    queryParams.set(key, value);
+                } else {
+                    queryParams.delete(key);
+                }
+            });
+            history.push(`${location.pathname}?${queryParams.toString()}`);
+        },
+        [history, location.search]
+    );
 
-    const handlePageChange = (page) => setCurrentPage(page);
-
-    const handleFirstPage = () => setCurrentPage(1);
-
-    const handleNextPage = () => {
-        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    // Handle page changes
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+        updateUrl({ page });
     };
 
-    const handleCategoryClick = (categoryGender, categoryTitle, categoryId) => {
+    const handleSortChange = (e) => {
+        const newSort = e.target.value;
+        setSort(newSort);
+        updateUrl({ sort: newSort, page: 1 });
+    };
+
+    const handleFilterInputChange = (e) => {
+        setFilterInput(e.target.value);
+    };
+
+    const handleFilterApply = () => {
+        setFilter(filterInput);
+        updateUrl({ filter: filterInput, page: 1 });
+    };
+
+    const handleCategoryClick = (categoryGender, categoryTitle, clickedCategoryId) => {
         const formattedTitle = categoryTitle.toLowerCase().replace(/\s+/g, '-');
-        history.push(`/shop/${categoryGender}/${formattedTitle}/${categoryId}?category=${categoryId}&limit=${itemsPerPage}`);
+        updateUrl({ category: clickedCategoryId });
+        history.push(`/shop/${categoryGender}/${formattedTitle}/${clickedCategoryId}`);
     };
 
     const topCategories = categories
-        .filter(category => category && category.title && category.rating)
+        .filter((category) => category && category.title && category.rating)
         .sort((a, b) => b.rating - a.rating)
         .slice(0, 5);
 
-    if (fetchState === "loading") {
+    if (fetchState === 'loading') {
         return <Spinner />;
     }
 
     return (
         <div className="flex flex-col min-h-screen bg-white">
+            {/* Categories Section */}
             <div className="flex flex-col md:flex-row md:flex-wrap lg:grid lg:grid-cols-5 gap-4 m-10">
                 {topCategories.map((category) => (
                     <div key={category.id} className="w-full lg:w-auto mb-4">
@@ -73,7 +125,9 @@ const ShopPage = () => {
                                     >
                                         {category.title}
                                     </button>
-                                    <p className="text-white text-sm text-center">Rating: {category.rating.toFixed(1)}</p>
+                                    <p className="text-white text-sm text-center">
+                                        Rating: {category.rating.toFixed(1)}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -81,32 +135,95 @@ const ShopPage = () => {
                 ))}
             </div>
 
+            {/* Main Section */}
             <main className="flex-grow container mx-auto px-4 py-8">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center md:text-left">
-                    {gender && category ? `${gender.charAt(0).toUpperCase() + gender.slice(1)} ${category}` : 'Shop'}
+                    {gender && category
+                        ? `${gender.charAt(0).toUpperCase() + gender.slice(1)} ${category}`
+                        : 'Shop'}
                 </h2>
-                <p className="text-gray-600 mb-8 text-center md:text-left">Showing {products.length} of {total} results</p>
+                <p className="text-gray-600 mb-8 text-center md:text-left">
+                    Showing {products.length} of {total} results
+                </p>
 
-                <div className="mt-6 w-full">
-                    <ProductPage products={products} />
+                {/* Sort and Filter Controls */}
+                <div className="flex flex-col md:flex-row justify-between mb-8">
+                    <div className="flex items-center space-x-4">
+                        <input
+                            type="text"
+                            placeholder="Filter products..."
+                            value={filterInput}
+                            onChange={handleFilterInputChange}
+                            className="p-2 border rounded"
+                        />
+                        <button
+                            onClick={handleFilterApply}
+                            className="bg-blue-500 text-white px-4 py-2 rounded"
+                        >
+                            Filter
+                        </button>
+                        <select
+                            className="p-2 border rounded"
+                            onChange={handleSortChange}
+                            value={sort}
+                        >
+                            <option value="">Sort by Popularity</option>
+                            <option value="price:asc">Price: Low to High</option>
+                            <option value="price:desc">Price: High to Low</option>
+                            <option value="rating:asc">Rating: Low to High</option>
+                            <option value="rating:desc">Rating: High to Low</option>
+                        </select>
+                    </div>
                 </div>
+
+                {/* Products Section */}
+                <ProductPage />
 
                 {/* Pagination */}
                 <div className="button-group mt-20 flex flex-row justify-center items-center">
-                    <button onClick={handleFirstPage} disabled={currentPage === 1} className="button-first-next">First</button>
+                    {/* First Page Button */}
+                    <button
+                        onClick={() => handlePageChange(1)}
+                        disabled={currentPage === 1}
+                        className={`button-first-next ${currentPage === 1 ? 'disabled' : ''}`}
+                    >
+                        First
+                    </button>
 
-                    {[...Array(Math.min(3, totalPages))].map((_, index) => (
+                    {/* Previous Page */}
+                    {currentPage > 1 && (
                         <button
-                            key={index}
-                            onClick={() => handlePageChange(index + 1)}
-                            className={`button-page-number ${currentPage === index + 1 ? 'active' : ''}`}
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            className="button-page-number"
                         >
-                            {index + 1}
+                            {currentPage - 1}
                         </button>
-                    ))}
+                    )}
 
-                    <button onClick={handleNextPage} disabled={currentPage === totalPages} className="button-first-next">Next</button>
+                    {/* Current Page */}
+                    <button className="button-page-number active">{currentPage}</button>
+
+                    {/* Next Page */}
+                    {currentPage < totalPages && (
+                        <button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            className="button-page-number"
+                        >
+                            {currentPage + 1}
+                        </button>
+                    )}
+
+                    {/* Last Page Button */}
+                    <button
+                        onClick={() => handlePageChange(totalPages)}
+                        disabled={currentPage === totalPages}
+                        className={`button-first-next ${currentPage === totalPages ? 'disabled' : ''}`}
+                    >
+                        Last
+                    </button>
                 </div>
+
+
             </main>
             <Brands />
         </div>

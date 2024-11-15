@@ -76,18 +76,22 @@ export const fetchCategories = () => (dispatch) => {
         });
 };
 export const fetchProducts = (queryString = "") => (dispatch) => {
-    const endpoint = queryString ? `/products?${queryString}` : "/products";
+    dispatch({ type: 'SET_FETCH_STATE', payload: 'loading' });
 
-    console.log("Fetching products from endpoint:", endpoint); // Log for debugging
+    const endpoint = `/products${queryString ? `?${queryString}` : ""}`;
+
+    console.log("Fetching products from endpoint:", endpoint); // Debug log
 
     return myApi
         .get(endpoint)
         .then((response) => {
-            console.log("Fetched products response:", response.data); // Log response for debugging
-            dispatch(setProductList(response.data.products));
-            dispatch(setTotal(response.data.total));
+            console.log("Fetched products response:", response.data); // Debug log
+            dispatch({ type: 'SET_PRODUCT_LIST', payload: response.data.products });
+            dispatch({ type: 'SET_TOTAL', payload: response.data.total });
+            dispatch({ type: 'SET_FETCH_STATE', payload: 'success' });
         })
         .catch((error) => {
             console.error("Error fetching products:", error);
+            dispatch({ type: 'SET_FETCH_STATE', payload: 'error' });
         });
 };
